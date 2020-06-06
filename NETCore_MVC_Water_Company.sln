@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETCore_MVC_Water_Company.Common", "NETCore_MVC_Water_Company.Common\NETCore_MVC_Water_Company.Common.csproj", "{8B07E7E5-8D7B-4B56-8F3A-EC9A41C738D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETCore_MVC_Water_Company.Web", "NETCore_MVC_Water_Company.Web\NETCore_MVC_Water_Company.Web.csproj", "{A06CACB4-7366-407B-A8CE-03B5757B7B29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B07E7E5-8D7B-4B56-8F3A-EC9A41C738D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B07E7E5-8D7B-4B56-8F3A-EC9A41C738D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B07E7E5-8D7B-4B56-8F3A-EC9A41C738D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B07E7E5-8D7B-4B56-8F3A-EC9A41C738D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A06CACB4-7366-407B-A8CE-03B5757B7B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A06CACB4-7366-407B-A8CE-03B5757B7B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A06CACB4-7366-407B-A8CE-03B5757B7B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A06CACB4-7366-407B-A8CE-03B5757B7B29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49131884-8003-4F5B-93FE-733A6086EEE4}
+	EndGlobalSection
+EndGlobal
