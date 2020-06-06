@@ -11,6 +11,8 @@ namespace NETCore_MVC_Water_Company.Web.Data
     {
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<Location> Locations { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
