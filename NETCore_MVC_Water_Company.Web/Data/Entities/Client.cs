@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
 
 
-    public class Client
+    public class Client : IEntity
     {
         public int Id { get; set; }
 
