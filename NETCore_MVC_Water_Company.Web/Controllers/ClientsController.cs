@@ -4,20 +4,23 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using AspNetCore;
+    using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using NETCore_MVC_Water_Company.Web.Data;
     using NETCore_MVC_Water_Company.Web.Data.Entities;
+    using NETCore_MVC_Water_Company.Web.Helpers;
 
     public class ClientsController : Controller
     {
         readonly IClientRepository _clientRepository;
+        readonly IUserHelper _userHelper;
 
-        public ClientsController(IClientRepository clientRepository)
+        public ClientsController(IClientRepository clientRepository, IUserHelper userHelper)
         {
             _clientRepository = clientRepository;
+            _userHelper = userHelper;
         }
 
         // GET: Clients
@@ -54,6 +57,8 @@
         {
             if (ModelState.IsValid)
             {
+                //TODO: Change to the logged user
+                client.User = await _userHelper.GetUserByEmail("ricardo.pinto.lourenco@formandos.cinel.pt");
                 await _clientRepository.CreateAsync(client);
                 return RedirectToAction(nameof(Index));
             }
@@ -88,6 +93,8 @@
             {
                 try
                 {
+                    //TODO: Change to the logged user
+                    client.User = await _userHelper.GetUserByEmail("ricardo.pinto.lourenco@formandos.cinel.pt");
                     await _clientRepository.UpdateAsync(client);
                 }
                 catch (DbUpdateConcurrencyException)

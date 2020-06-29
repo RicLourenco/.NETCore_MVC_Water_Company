@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NETCore_MVC_Water_Company.Web.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace NETCore_MVC_Water_Company.Web.Data
+﻿namespace NETCore_MVC_Water_Company.Web.Data
 {
-    public class DataContext : DbContext
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+    using NETCore_MVC_Water_Company.Web.Data.Entities;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    public class DataContext : IdentityDbContext<User>
     {
         public DbSet<Client> Clients { get; set; }
 
