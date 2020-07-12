@@ -25,7 +25,6 @@
         public DateTime BirthDate { get; set; }
 
         //TODO: Missing tables: gender, locations, documenttype
-
         public User User { get; set; }
     }
 }

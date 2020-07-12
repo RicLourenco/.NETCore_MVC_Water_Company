@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,15 @@
     using NETCore_MVC_Water_Company.Web.Data.Entities;
     using NETCore_MVC_Water_Company.Web.Helpers;
 
+    [Authorize]
     public class ClientsController : Controller
     {
         readonly IClientRepository _clientRepository;
         readonly IUserHelper _userHelper;
 
-        public ClientsController(IClientRepository clientRepository, IUserHelper userHelper)
+        public ClientsController(
+            IClientRepository clientRepository,
+            IUserHelper userHelper)
         {
             _clientRepository = clientRepository;
             _userHelper = userHelper;

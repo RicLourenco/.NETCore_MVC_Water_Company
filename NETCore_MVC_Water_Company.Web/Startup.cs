@@ -33,12 +33,12 @@
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
-                cfg.Password.RequireDigit = false;
+                cfg.Password.RequireDigit = true;
                 cfg.Password.RequiredUniqueChars = 0;
-                cfg.Password.RequireLowercase = false;
-                cfg.Password.RequireNonAlphanumeric = false;
-                cfg.Password.RequireUppercase = false;
-                cfg.Password.RequiredLength = 6;
+                cfg.Password.RequireLowercase = true;
+                cfg.Password.RequireNonAlphanumeric = true;
+                cfg.Password.RequireUppercase = true;
+                cfg.Password.RequiredLength = 8;
             }).AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(cfg =>
@@ -77,6 +77,7 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

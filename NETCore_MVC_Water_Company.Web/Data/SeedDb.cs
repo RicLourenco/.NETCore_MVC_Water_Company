@@ -39,7 +39,7 @@
                     PhoneNumber = "914776731"
                 };
 
-                var result = await _userHelper.AddUserAsync(user, "123456");
+                var result = await _userHelper.AddUserAsync(user, "NTIyiit1234!");
 
                 if(!result.Succeeded)
                 {
