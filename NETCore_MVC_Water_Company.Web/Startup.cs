@@ -43,12 +43,13 @@
 
             services.AddDbContext<DataContext>(cfg =>
             {
-                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                cfg.UseSqlServer(Configuration.GetConnectionString("SomeeConnection2"));
             });
 
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
-            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IWaterMeterRepository, WaterMeterRepository>();
+            services.AddScoped<IBillRepository, BillRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

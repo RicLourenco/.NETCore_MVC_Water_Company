@@ -1,4 +1,4 @@
-﻿@model NETCore_MVC_Water_Company.Web.Data.Entities.Client
+﻿@model NETCore_MVC_Water_Company.Web.Data.Entities.WaterMeter
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,26 +8,20 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Client</h4>
+    <h4>WaterMeter</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstNames)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FirstNames)
+            @Html.DisplayFor(model => model.Address)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LastNames)
+            @Html.DisplayNameFor(model => model.TotalConsumption)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastNames)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BirthDate)
+            @Html.DisplayFor(model => model.TotalConsumption)
         </dd>
     </dl>
     

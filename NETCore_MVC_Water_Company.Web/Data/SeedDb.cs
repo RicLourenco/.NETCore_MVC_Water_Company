@@ -5,6 +5,7 @@
     using NETCore_MVC_Water_Company.Web.Helpers;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -32,10 +33,11 @@
             {
                 user = new User
                 {
-                    FirstName = "Ricardo",
-                    LastName = "Lourenço",
+                    FirstNames = "Ricardo",
+                    LastNames = "Lourenço",
+                    BirthDate = Convert.ToDateTime(DateTime.ParseExact("14-05-1995", "dd-MM-yyyy", CultureInfo.InvariantCulture)),
                     Email = "ricardo.pinto.lourenco@formandos.cinel.pt",
-                    UserName = "RicLourenco",
+                    UserName = "ricardo.pinto.lourenco@formandos.cinel.pt",
                     PhoneNumber = "914776731"
                 };
 
@@ -43,7 +45,7 @@
 
                 if(!result.Succeeded)
                 {
-                    throw new InvalidOperationException($"An error occurred trying to create the default Admin RicLourenco in the seeder");
+                    throw new InvalidOperationException($"An error occurred trying to create the default Admin Ricardo Lourenço in the seeder");
                 }
             }
 

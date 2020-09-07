@@ -2,7 +2,7 @@
 {
     using NETCore_MVC_Water_Company.Web.Data.Entities;
 
-    public interface IClientRepository : IGenericRepository<Client>
+    public interface IWaterMeterRepository : IGenericRepository<WaterMeter>
     {
     }
 }

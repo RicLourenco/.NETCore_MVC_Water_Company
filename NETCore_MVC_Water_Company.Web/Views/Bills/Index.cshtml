@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NETCore_MVC_Water_Company.Web.Data.Entities.Client>
+﻿@model IEnumerable<NETCore_MVC_Water_Company.Web.Data.Entities.Bill>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstNames)
+                @Html.DisplayNameFor(model => model.Consumption)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastNames)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                @Html.DisplayNameFor(model => model.MonthYear)
             </th>
             <th></th>
         </tr>
@@ -28,13 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstNames)
+                @Html.DisplayFor(modelItem => item.Consumption)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastNames)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
+                @Html.DisplayFor(modelItem => item.MonthYear)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
