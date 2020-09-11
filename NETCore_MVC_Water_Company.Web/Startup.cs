@@ -16,6 +16,7 @@
     using NETCore_MVC_Water_Company.Web.Data;
     using NETCore_MVC_Water_Company.Web.Data.Entities;
     using NETCore_MVC_Water_Company.Web.Helpers;
+    using NETCore_MVC_Water_Company.Web.Data.Repositories;
 
     public class Startup
     {
@@ -43,13 +44,12 @@
 
             services.AddDbContext<DataContext>(cfg =>
             {
-                cfg.UseSqlServer(Configuration.GetConnectionString("SomeeConnection2"));
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            //TODO: add necessary repositories after finishing entities and repositories
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
-            services.AddScoped<IWaterMeterRepository, WaterMeterRepository>();
-            services.AddScoped<IBillRepository, BillRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

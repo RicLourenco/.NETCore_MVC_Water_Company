@@ -46,7 +46,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Failed to login");
+            ModelState.AddModelError(string.Empty, "Incorrent e-mail or password");
             return View(model);
         }
 

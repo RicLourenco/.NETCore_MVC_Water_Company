@@ -13,7 +13,17 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public int Id { get; set; }
 
 
+        /// <summary>
+        /// Is bill payed
+        /// </summary>
+        public bool PaymentState { get; set; }
+
+
+        /// <summary>
+        /// Consumption for specific month
+        /// </summary>
         public float Consumption { get; set; }
+
 
         //TODO: Fix this
         public DateTime MonthYear

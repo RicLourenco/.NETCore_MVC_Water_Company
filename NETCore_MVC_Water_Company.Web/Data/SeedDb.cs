@@ -49,9 +49,8 @@
                 }
             }
 
-            //TODO: Check later if the locations will eventually need a User property
-
-            if(!_context.Locations.Any())
+            /*
+            if(!_context.Cities.Any())
             {
                 AddLocation("Lisboa");
                 AddLocation("Porto");
@@ -60,14 +59,17 @@
                 AddLocation("Alentejo");
                 await _context.SaveChangesAsync();
             }
+            */
         }
 
+        /*
         void AddLocation(string name)
         {
-            _context.Locations.Add(new Location
+            _context.Cities.Add(new City
             {
                 Name = name
             });
         }
+        */
     }
 }
