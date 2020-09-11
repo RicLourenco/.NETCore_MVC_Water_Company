@@ -6,22 +6,55 @@
 
     public class User : IdentityUser
     {
+        DateTime _birthDate;
+
+
         [Display(Name = "First names")]
         [Required]
         public string FirstNames { get; set; }
+
 
         [Display(Name = "Last names")]
         [Required]
         public string LastNames { get; set; }
 
+
         [Display(Name = "Full name")]
         public string FullName { get => $"{FirstNames} {LastNames}"; }
 
-        //TODO: User must be 18 years old, or older
+
         [Display(Name = "Date of birth")]
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate
+        {
+            get { return _birthDate; }
+            set
+            {
+                if(DateTime.UtcNow.Year - value.Year >= 18 &&
+                    DateTime.UtcNow.DayOfYear >= value.DayOfYear)
+                {
+                    _birthDate = value;
+                }
+            }
+        }
 
-        //TODO: Missing tables: gender, documenttype
+
+        [Required]
+        public byte Gender { get; set; }
+
+
+        [Display(Name = "Identification document")]
+        [Required]
+        public Document DocumentType { get; set; }
+
+
+        [Required]
+        [Display(Name = "Document number")]
+        public string DocumentNumber { get; set; }
+
+
+        [Required]
+        [Display(Name = "Expiration date")]
+        public DateTime ExpirationDate { get; set; }
     }
 }
