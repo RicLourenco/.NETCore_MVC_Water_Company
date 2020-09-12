@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NETCore_MVC_Water_Company.Web.Helpers;
+using Microsoft.Extensions.Configuration;
+using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
 using NETCore_MVC_Water_Company.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,17 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
     public class AccountController : Controller
     {
         readonly IUserHelper _userHelper;
+        readonly IConfiguration _configuration;
+        readonly IMailHelper _mailHelper;
 
-        public AccountController(IUserHelper userHelper)
+        public AccountController(
+            IUserHelper userHelper,
+            IConfiguration configuration,
+            IMailHelper mailHelper)
         {
             _userHelper = userHelper;
+            _configuration = configuration;
+            _mailHelper = mailHelper;
         }
 
         public IActionResult Login()
@@ -55,5 +63,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             await _userHelper.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

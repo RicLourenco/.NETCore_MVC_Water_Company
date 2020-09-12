@@ -26,7 +26,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         [Required]
-        public DateTime MonthYear { get;set }
+        public DateTime MonthYear { get; set; }
 
 
         public WaterMeter WaterMeter { get; set; }

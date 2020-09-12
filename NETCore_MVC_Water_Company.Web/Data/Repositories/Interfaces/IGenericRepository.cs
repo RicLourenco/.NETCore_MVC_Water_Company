@@ -1,4 +1,4 @@
-﻿namespace NETCore_MVC_Water_Company.Web.Data.Repositories
+﻿namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 {
     using System.Linq;
     using System.Threading.Tasks;

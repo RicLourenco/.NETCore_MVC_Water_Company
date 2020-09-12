@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
-    public class ZipCode : IEntity
+    public class Step : IEntity
     {
         public int Id { get; set; }
 
 
-        [Required]
-        [StringLength(4)]
-        public string Code { get; set; }
+        public byte StepNumber { get; set; }
+
+
+        public float MaximumConsumption { get; set; }
+
+
+        public float Price { get; set; }
     }
 }

@@ -1,9 +1,10 @@
-﻿namespace NETCore_MVC_Water_Company.Web.Data.Repositories
+﻿namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
 {
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using NETCore_MVC_Water_Company.Web.Data.Entities;
+    using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {

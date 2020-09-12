@@ -6,9 +6,6 @@
 
     public class User : IdentityUser
     {
-        DateTime _birthDate;
-
-
         [Display(Name = "First names")]
         [Required]
         public string FirstNames { get; set; }
@@ -23,20 +20,10 @@
         public string FullName { get => $"{FirstNames} {LastNames}"; }
 
 
+        //TODO: check leap year age
         [Display(Name = "Date of birth")]
         [Required]
-        public DateTime BirthDate
-        {
-            get { return _birthDate; }
-            set
-            {
-                if(DateTime.UtcNow.Year - value.Year >= 18 &&
-                    DateTime.UtcNow.DayOfYear >= value.DayOfYear)
-                {
-                    _birthDate = value;
-                }
-            }
-        }
+        public DateTime BirthDate { get; set; }
 
 
         [Required]
@@ -45,16 +32,6 @@
 
         [Display(Name = "Identification document")]
         [Required]
-        public Document DocumentType { get; set; }
-
-
-        [Required]
-        [Display(Name = "Document number")]
-        public string DocumentNumber { get; set; }
-
-
-        [Required]
-        [Display(Name = "Expiration date")]
-        public DateTime ExpirationDate { get; set; }
+        public Document Document { get; set; }
     }
 }

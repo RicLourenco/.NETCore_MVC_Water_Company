@@ -4,6 +4,8 @@
     using NETCore_MVC_Water_Company.Web.Data.Entities;
     using NETCore_MVC_Water_Company.Web.Helpers;
     using System;
+    using NETCore_MVC_Water_Company.Web.Helpers.Classes;
+    using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -27,7 +29,7 @@
         {
             await _context.Database.EnsureCreatedAsync();
 
-            var user = await _userHelper.GetUserByEmail("ricardo.pinto.lourenco@formandos.cinel.pt");
+            var user = await _userHelper.GetUserByEmailAsync("ricardo.pinto.lourenco@formandos.cinel.pt");
 
             if(user == null)
             {

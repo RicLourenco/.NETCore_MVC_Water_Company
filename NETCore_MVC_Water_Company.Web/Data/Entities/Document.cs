@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
@@ -13,6 +14,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
         [Required]
         [Display(Name = "Document type")]
-        public string DocumentType { get; set; }
+        public DocumentType DocumentType { get; set; }
+
+
+        public string DocumentNumber { get; set; }
     }
 }

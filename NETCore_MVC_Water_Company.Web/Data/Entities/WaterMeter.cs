@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using NETCore_MVC_Water_Company.Web.Data.Entities;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
@@ -16,6 +17,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public string Street { get; set; }
 
 
+        [Required]
+        [Display(Name = "Door number")]
         public string DoorNumber { get; set; }
 
 
@@ -33,20 +36,19 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// <summary>
         /// Is meter active
         /// </summary>
+        [Required]
+        [Display(Name = "Meter locked")]
         public bool MeterState { get; set; }
 
 
         public User User { get; set; }
 
 
-
         public City City { get; set; }
 
 
-        //TODO: concat the first 4 digits from the list of zipcodes in the selected city 
-        //with the last 3 digits inserted by the user in the view
         [Required]
-        [Display(Name = "Full zip code")]
+        [Display(Name = "Zip code")]
         public string ZipCode { get; set; }
     }
 }

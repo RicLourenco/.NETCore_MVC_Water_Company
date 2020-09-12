@@ -15,8 +15,11 @@
     using Microsoft.Extensions.DependencyInjection;
     using NETCore_MVC_Water_Company.Web.Data;
     using NETCore_MVC_Water_Company.Web.Data.Entities;
-    using NETCore_MVC_Water_Company.Web.Helpers;
+    using NETCore_MVC_Water_Company.Web.Helpers.Classes;
+    using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using NETCore_MVC_Water_Company.Web.Data.Repositories;
+    using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
+    using NETCore_MVC_Water_Company.Web.Data.Repositories.Classes;
 
     public class Startup
     {
@@ -30,7 +33,6 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //TODO: Alter the properties to have higher security
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
@@ -50,6 +52,11 @@
             //TODO: add necessary repositories after finishing entities and repositories
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
+            services.AddScoped<IBillRepository, BillRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IStepRepository, StepRepository>();
+            services.AddScoped<IWaterMeterRepository, WaterMeterRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
