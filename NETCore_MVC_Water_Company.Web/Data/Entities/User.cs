@@ -1,18 +1,21 @@
 ﻿namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Reflection.Metadata;
     using Microsoft.AspNetCore.Identity;
 
     public class User : IdentityUser
     {
-        [Display(Name = "First names")]
         [Required]
+        [Display(Name = "First names")]
         public string FirstNames { get; set; }
 
 
-        [Display(Name = "Last names")]
         [Required]
+        [Display(Name = "Last names")]
         public string LastNames { get; set; }
 
 
@@ -20,9 +23,8 @@
         public string FullName { get => $"{FirstNames} {LastNames}"; }
 
 
-        //TODO: check leap year age
-        [Display(Name = "Date of birth")]
         [Required]
+        [Display(Name = "Date of birth")]
         public DateTime BirthDate { get; set; }
 
 
@@ -30,8 +32,18 @@
         public byte Gender { get; set; }
 
 
-        [Display(Name = "Identification document")]
         [Required]
+        [Display(Name = "Identification document")]
         public Document Document { get; set; }
+
+
+        [Required]
+        [Display(Name = "Document number")]
+        public string DocumentNumber { get; set; }
+
+
+        [Required]
+        [Display(Name = "Tax identitfication number")]
+        public string TIN { get; set; }
     }
 }

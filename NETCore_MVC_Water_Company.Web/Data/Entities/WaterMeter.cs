@@ -10,19 +10,12 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
     public class WaterMeter : IEntity
     {
+        [Display(Name = "Serial number")]
         public int Id { get; set; }
 
 
         [Required]
-        public string Street { get; set; }
-
-
-        [Required]
-        [Display(Name = "Door number")]
-        public string DoorNumber { get; set; }
-
-
-        public string Floor { get; set; }
+        public string Address { get; set; }
 
 
         /// <summary>
@@ -37,11 +30,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// Is meter active
         /// </summary>
         [Required]
-        [Display(Name = "Meter locked")]
+        [Display(Name = "Meter active?")]
         public bool MeterState { get; set; }
-
-
-        public User User { get; set; }
 
 
         public City City { get; set; }
@@ -50,5 +40,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         [Required]
         [Display(Name = "Zip code")]
         public string ZipCode { get; set; }
+
+
+        //TODO: check later
+        public IEnumerable<Bill> Bills { get; set; }
     }
 }

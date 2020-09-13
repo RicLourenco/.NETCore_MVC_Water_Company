@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 {
-    public interface IWaterMeterRepository : IGenericRepository<WaterMeter>
+    public interface IClientRepository : IGenericRepository<Client>
     {
+        IEnumerable<SelectListItem> GetComboWaterMeters(int clientId);
     }
 }

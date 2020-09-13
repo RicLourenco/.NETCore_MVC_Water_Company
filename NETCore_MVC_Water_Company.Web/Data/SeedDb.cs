@@ -51,27 +51,16 @@
                 }
             }
 
-            /*
             if(!_context.Cities.Any())
             {
-                AddLocation("Lisboa");
-                AddLocation("Porto");
-                AddLocation("Aveiro");
-                AddLocation("Algarve");
-                AddLocation("Alentejo");
+                await GetAPICitiesAsync();
                 await _context.SaveChangesAsync();
             }
-            */
         }
 
-        /*
-        void AddLocation(string name)
+        async Task GetAPICitiesAsync()
         {
-            _context.Cities.Add(new City
-            {
-                Name = name
-            });
+
         }
-        */
     }
 }

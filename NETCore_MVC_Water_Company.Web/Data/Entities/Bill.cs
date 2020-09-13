@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
@@ -26,9 +23,19 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public decimal FinalValue { get; set; }
+
+
+        [Required]
         public DateTime MonthYear { get; set; }
 
 
+        //TODO: check later
         public WaterMeter WaterMeter { get; set; }
+
+
+        //TODO: Maybe necessary to calculate finalprice
+        public Step Step { get; set; }
     }
 }

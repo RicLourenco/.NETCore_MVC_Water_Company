@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
-    public class Step : IEntity
+    public class Employee : IEntity
     {
         public int Id { get; set; }
 
 
-        [Required]
-        [Display(Name = "Maximum consumption")]
-        public float MaximumConsumption { get; set; }
+        public User User { get; set; }
 
 
-        [Required]
-        public float Price { get; set; }
+        [Display(Name = "Contract number")]
+        public string ContractNumber { get; set; }
+
+
+        public string IBAN { get; set; }
     }
 }

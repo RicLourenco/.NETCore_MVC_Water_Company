@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
 using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 using System;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
 {
-    public class WaterMeterRepository : GenericRepository<WaterMeter>, IWaterMeterRepository
+    public class DocumentRepository : GenericRepository<Document>, IDocumentRepository
     {
         readonly DataContext _context;
 
-        public WaterMeterRepository(DataContext context): base(context)
+        public DocumentRepository(DataContext context) : base(context)
         {
             _context = context;
         }

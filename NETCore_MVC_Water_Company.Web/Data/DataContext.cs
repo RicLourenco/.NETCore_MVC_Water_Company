@@ -21,6 +21,12 @@
 
         public DbSet<WaterMeter> WaterMeters { get; set; }
 
+        public DbSet<Document> Documents { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
@@ -28,11 +34,9 @@
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            /*
-            modelbuilder.Entity<Document>()
-                .HasIndex(d => d.DocumentNumber)
+            modelbuilder.Entity<User>()
+                .HasIndex(u => new { u.DocumentNumber, u.TIN })
                 .IsUnique();
-            */
 
             ///Disables cascade deleting
             var cascadeFKs = modelbuilder.Model
