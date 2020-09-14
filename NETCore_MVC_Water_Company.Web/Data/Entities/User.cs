@@ -24,12 +24,22 @@
 
 
         [Required]
+        public string Address { get; set; }
+
+
+        [Required]
         [Display(Name = "Date of birth")]
         public DateTime BirthDate { get; set; }
 
 
+        /// <summary>
+        /// 0 == "Male", 1 == "Female", 2 == "Other"
+        /// </summary>
         [Required]
         public byte Gender { get; set; }
+
+
+        public int DocumentId { get; set; }
 
 
         [Required]
@@ -45,5 +55,11 @@
         [Required]
         [Display(Name = "Tax identitfication number")]
         public string TIN { get; set; }
+
+
+        public string IBAN { get; set; }
+
+
+        public IEnumerable<WaterMeter> WaterMeters { get; set; }
     }
 }

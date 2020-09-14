@@ -1,4 +1,5 @@
-﻿using NETCore_MVC_Water_Company.Web.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NETCore_MVC_Water_Company.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 {
     public interface IDocumentRepository : IGenericRepository<Document>
     {
+        IEnumerable<SelectListItem> GetComboDocuments();
+
+        Task<Document> GetDocumentAsync(int id);
     }
 }

@@ -30,7 +30,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// Is meter active
         /// </summary>
         [Required]
-        [Display(Name = "Meter active?")]
+        [Display(Name = "Is meter active?")]
         public bool MeterState { get; set; }
 
 
@@ -42,7 +42,6 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public string ZipCode { get; set; }
 
 
-        //TODO: check later
-        public IEnumerable<Bill> Bills { get; set; }
+        public ICollection<Bill> Bills { get; set; }
     }
 }

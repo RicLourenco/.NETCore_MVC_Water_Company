@@ -57,8 +57,8 @@
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IStepRepository, StepRepository>();
             services.AddScoped<IWaterMeterRepository, WaterMeterRepository>();
-            services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //services.AddScoped<IClientRepository, ClientRepository>();
+            //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
+    //ENTITY NOT CURRENTLY IN USE
     public class Client : IEntity
     {
         [Display(Name = "Client number")]

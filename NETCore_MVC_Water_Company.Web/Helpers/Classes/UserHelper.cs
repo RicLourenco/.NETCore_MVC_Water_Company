@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
 
-    //TODO: Login via email instead of username (and maybe delete username property altogether)
     public class UserHelper : IUserHelper
     {
         readonly UserManager<User> _userManager;

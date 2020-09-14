@@ -11,21 +11,19 @@
 
     public class DataContext : IdentityDbContext<User>
     {
-
-        //TODO: create necessary dbsets after finishing entities
         public DbSet<Bill> Bills { get; set; }
 
         public DbSet<City> Cities { get; set; }
 
-        public DbSet<Step> Steps { get; set; }
-
-        public DbSet<WaterMeter> WaterMeters { get; set; }
+        //public DbSet<Client> Clients { get; set; }
 
         public DbSet<Document> Documents { get; set; }
 
-        public DbSet<Client> Clients { get; set; }
+        //public DbSet<Employee> Employees { get; set; }
 
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Step> Steps { get; set; }
+
+        public DbSet<WaterMeter> WaterMeters { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

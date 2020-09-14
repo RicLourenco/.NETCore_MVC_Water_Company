@@ -1,0 +1,42 @@
+﻿@model NETCore_MVC_Water_Company.Web.Data.Entities.WaterMeter
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WaterMeter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalConsumption)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalConsumption)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeterState)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeterState)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

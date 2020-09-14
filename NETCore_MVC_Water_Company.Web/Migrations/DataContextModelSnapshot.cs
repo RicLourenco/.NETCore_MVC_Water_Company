@@ -170,21 +170,6 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Clients");
-                });
-
             modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.Document", b =>
                 {
                     b.Property<int>("Id")
@@ -196,25 +181,6 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContractNumber");
-
-                    b.Property<string>("IBAN");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.Step", b =>
@@ -239,6 +205,9 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
                     b.Property<DateTime>("BirthDate");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -258,6 +227,8 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
                         .IsRequired();
 
                     b.Property<byte>("Gender");
+
+                    b.Property<string>("IBAN");
 
                     b.Property<string>("LastNames")
                         .IsRequired();
@@ -317,11 +288,11 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
 
                     b.Property<int?>("CityId");
 
-                    b.Property<int?>("ClientId");
-
                     b.Property<bool>("MeterState");
 
                     b.Property<float>("TotalConsumption");
+
+                    b.Property<string>("UserId");
 
                     b.Property<string>("ZipCode")
                         .IsRequired();
@@ -330,7 +301,7 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("WaterMeters");
                 });
@@ -391,20 +362,6 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
                         .HasForeignKey("WaterMeterId");
                 });
 
-            modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.Client", b =>
-                {
-                    b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.Employee", b =>
-                {
-                    b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.User", b =>
                 {
                     b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.Document", "Document")
@@ -419,9 +376,9 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
                         .WithMany()
                         .HasForeignKey("CityId");
 
-                    b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.Client")
+                    b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.User")
                         .WithMany("WaterMeters")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

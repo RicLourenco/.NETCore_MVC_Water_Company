@@ -12,6 +12,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// Is bill payed
         /// </summary>
         [Required]
+        [Display(Name = "Is bill payed?")]
         public bool PaymentState { get; set; }
 
 
@@ -24,18 +25,18 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:C2}")]
+        [Display(Name = "Price")]
         public decimal FinalValue { get; set; }
 
 
         [Required]
+        [Display(Name = "Bill date")]
         public DateTime MonthYear { get; set; }
 
 
-        //TODO: check later
         public WaterMeter WaterMeter { get; set; }
 
 
-        //TODO: Maybe necessary to calculate finalprice
         public Step Step { get; set; }
     }
 }
