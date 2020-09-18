@@ -16,14 +16,12 @@
     {
         readonly DataContext _context;
         readonly IUserHelper _userHelper;
-        //readonly IEmployeeRepository _employeeRepository;
 
 
-        public SeedDb(DataContext context, IUserHelper userHelper/*, IEmployeeRepository employeeRepository*/)
+        public SeedDb(DataContext context, IUserHelper userHelper)
         {
             _context = context;
             _userHelper = userHelper;
-            //_employeeRepository = employeeRepository;
         }
 
         public UserHelper UserHelper { get; }
@@ -32,11 +30,25 @@
         {
             await _context.Database.EnsureCreatedAsync();
 
+            await _userHelper.CheckRoleAsync("Admin");
+            await _userHelper.CheckRoleAsync("Employee");
+            await _userHelper.CheckRoleAsync("Client");
+
             if (!_context.Documents.Any())
             {
                 await AddDocument("Cartão de cidadão");
                 await AddDocument("Carta de condução");
                 await AddDocument("Bilhete de identidade");
+
+                await _context.SaveChangesAsync();
+            }
+
+            if (!_context.Steps.Any())
+            {
+                await AddStep(0, (float)0.3);
+                await AddStep(5, (float)0.5);
+                await AddStep(10, (float)0.8);
+                await AddStep(15, (float)1.2);
 
                 await _context.SaveChangesAsync();
             }
@@ -57,8 +69,7 @@
                     TIN = "271313862",
                     Address = "Rua das Flores, n.15, 3esq.",
                     DocumentNumber = "123456789",
-                    Document = _context.Documents.FirstOrDefault(),
-                    //WaterMeters = null
+                    Document = _context.Documents.FirstOrDefault()
                 };
 
                 var result = await _userHelper.AddUserAsync(user, "%gURn73e");
@@ -66,6 +77,17 @@
                 if (!result.Succeeded)
                 {
                     throw new InvalidOperationException($"An error occurred trying to create the default Admin Ricardo Lourenço in the seeder");
+                }
+
+                //var token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+
+                //await _userHelper.ConfirmEmailAsync(user, token);
+
+                var isInRole = await _userHelper.IsUserInRoleAsync(user, "Admin");
+
+                if (!isInRole)
+                {
+                    await _userHelper.AddUserToRoleAsync(user, "Admin");
                 }
 
                 //Employee employee = new Employee
@@ -109,6 +131,14 @@
         {
             await _context.Documents.AddAsync( new Document{
                 Name = name
+            });
+        }
+
+        async Task AddStep(float minimumConsumption, float price)
+        {
+            await _context.Steps.AddAsync( new Step{
+                MinimumConsumption = minimumConsumption,
+                Price = price
             });
         }
     }

@@ -33,16 +33,57 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Bills" asp-action="Index">Bills</a></li>
-                    <li><a asp-area="" asp-controller="Cities" asp-action="Index">Cities</a></li>
-                    <li><a asp-area="" asp-controller="Documents" asp-action="Index">Documents</a></li>
-                    <li><a asp-area="" asp-controller="Steps" asp-action="Index">Steps</a></li>
-                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">WaterMeters</a></li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="" asp-controller="" asp-action="">Users</a></li>
+                                    <li><a asp-area="" asp-controller="" asp-action="">Roles</a></li>
+                                    <li><a asp-area="" asp-controller="Bills" asp-action="Index">Bills</a></li>
+                                    <li><a asp-area="" asp-controller="Cities" asp-action="Index">Cities</a></li>
+                                    <li><a asp-area="" asp-controller="Documents" asp-action="Index">Documents</a></li>
+                                    <li><a asp-area="" asp-controller="Steps" asp-action="Index">Steps</a></li>
+                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">WaterMeters</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else if (User.IsInRole("Employee"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="" asp-controller="" asp-action="">Users</a></li>
+                                    <li><a asp-area="" asp-controller="Bills" asp-action="Index">Bills</a></li>
+                                    <li><a asp-area="" asp-controller="Cities" asp-action="Index">Cities</a></li>
+                                    <li><a asp-area="" asp-controller="Documents" asp-action="Index">Documents</a></li>
+                                    <li><a asp-area="" asp-controller="Steps" asp-action="Index">Steps</a></li>
+                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">WaterMeters</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="" asp-controller="Bills" asp-action="Index">Bills</a></li>
+                                    <li><a asp-area="" asp-controller="Steps" asp-action="Index">Steps</a></li>
+                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">WaterMeters</a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
                 </ul>
+
+                <!--Login-->
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@User.Identity.Name</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
                     }
                     else

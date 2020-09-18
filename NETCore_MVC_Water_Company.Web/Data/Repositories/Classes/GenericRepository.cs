@@ -25,7 +25,7 @@
 
         public async Task DeleteAsync(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            _context.Set<T>().Remove(entity);
             await SaveAllAsync();
         }
 

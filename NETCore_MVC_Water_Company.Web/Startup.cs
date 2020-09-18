@@ -20,6 +20,8 @@
     using NETCore_MVC_Water_Company.Web.Data.Repositories;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Classes;
+    using Microsoft.IdentityModel.Tokens;
+    using System.Text;
 
     public class Startup
     {
@@ -42,7 +44,22 @@
                 cfg.Password.RequireNonAlphanumeric = true;
                 cfg.Password.RequireUppercase = true;
                 cfg.Password.RequiredLength = 8;
-            }).AddEntityFrameworkStores<DataContext>();
+            })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<DataContext>();
+
+            services.AddAuthentication()
+                .AddCookie()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                    };
+                });
 
             services.AddDbContext<DataContext>(cfg =>
             {
@@ -68,6 +85,10 @@
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/account/notauthorized";
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

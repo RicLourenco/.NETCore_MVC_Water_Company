@@ -12,8 +12,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         [Required]
-        [Display(Name = "Maximum consumption")]
-        public float MaximumConsumption { get; set; }
+        [Display(Name = "Minimum consumption")]
+        public float MinimumConsumption { get; set; }
 
 
         [Required]

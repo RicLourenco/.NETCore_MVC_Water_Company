@@ -19,14 +19,21 @@ namespace NETCore_MVC_Water_Company.Web.Models
         public string LastNames { get; set; }
 
 
-        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters.")]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Username { get; set; }
+
+
+        [Required]
+        [MaxLength(100, ErrorMessage = "The {0} can contain a maximum of {1} characters.")]
         public string Address { get; set; }
 
 
-        [MaxLength(20, ErrorMessage = "The field {0} only can contain {1} characters.")]
+        [Display(Name = "Phone number")]
+        [MaxLength(20, ErrorMessage = "The {0} only can contain {1} characters.")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        //[Required]
         public byte Gender { get; set; }
 
 
@@ -37,9 +44,10 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
         public IEnumerable<SelectListItem> Documents { get; set; }
 
+
         [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Username { get; set; }
+        [Display(Name = "Identification document number")]
+        public string DocumentNumber { get; set; }
 
 
         [Required]

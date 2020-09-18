@@ -6,7 +6,6 @@
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -16,8 +15,6 @@
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using NETCore_MVC_Water_Company.Web.Models;
 
-
-    //TODO: Clean this code with the use of helpers
     public class AccountController : Controller
     {
         readonly IUserHelper _userHelper;
@@ -91,7 +88,7 @@
             return View();
         }
 
-
+        //TODO: NOT SENDING E-MAILS
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
@@ -112,8 +109,12 @@
                         Address = model.Address,
                         PhoneNumber = model.PhoneNumber,
                         DocumentId = model.DocumentId,
-                        Document = document
+                        DocumentNumber = model.DocumentNumber,
+                        //Document = document,
+                        TIN = model.TIN,
+                        Gender = 2
                     };
+
 
                     var result = await _userHelper.AddUserAsync(user, model.Password);
 
@@ -122,6 +123,8 @@
                         ModelState.AddModelError(string.Empty, "An error occurred creating the user");
                         return View(model);
                     }
+
+                    await _userHelper.AddUserToRoleAsync(user, "Client");
 
                     var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
                     var tokenLink = Url.Action("ConfirmEmail", "Account", new
@@ -133,7 +136,7 @@
                     _mailHelper.SendMail(model.Username, "Email confirmation", $"<h1>Email Confirmation</h1>" +
                         $"To allow the user, " +
                         $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
-                    ViewBag.Message = "The instructions to allow your user has been sent to email.";
+                    ViewBag.Message = "User created successfully, please check your e-mail to enable your account";
 
                     return View(model);
                 }

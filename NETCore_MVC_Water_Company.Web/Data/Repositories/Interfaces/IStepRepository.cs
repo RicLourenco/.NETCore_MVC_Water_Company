@@ -8,5 +8,10 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 {
     public interface IStepRepository : IGenericRepository<Step>
     {
+        IQueryable GetStepsOrdered();
+
+        Task InsertStepAsync(Step step);
+
+        Task DeleteStepAsync(Step step);
     }
 }
