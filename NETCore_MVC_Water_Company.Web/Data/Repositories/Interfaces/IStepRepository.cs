@@ -1,4 +1,5 @@
 ﻿using NETCore_MVC_Water_Company.Web.Data.Entities;
+using NETCore_MVC_Water_Company.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
         Task InsertStepAsync(Step step);
 
         Task DeleteStepAsync(Step step);
+
+        Task UpdateStepAsync(Step step);
     }
 }

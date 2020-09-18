@@ -32,10 +32,14 @@
         public async Task<bool> ExistsAsync(int id) =>
             await _context.Set<T>().AnyAsync(e => e.Id == id);
 
-        public IQueryable<T> GetAll() => _context.Set<T>().AsNoTracking();
+        public IQueryable<T> GetAll() =>
+            _context.Set<T>()
+            .AsNoTracking();
 
         public async Task<T> GetByIdAsync(int id) =>
-            await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+            await _context.Set<T>()
+            .AsNoTracking().
+            FirstOrDefaultAsync(e => e.Id == id);
 
         public async Task UpdateAsync(T entity)
         {
@@ -43,6 +47,7 @@
             await SaveAllAsync();
         }
 
-        async Task<bool> SaveAllAsync() => await _context.SaveChangesAsync() > 0;
+        async Task<bool> SaveAllAsync() =>
+            await _context.SaveChangesAsync() > 0;
     }
 }

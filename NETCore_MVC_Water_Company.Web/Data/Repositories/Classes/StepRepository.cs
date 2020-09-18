@@ -28,7 +28,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
         public async Task InsertStepAsync(Step step)
         {
             var result = await _context.Steps
-                .Where(s => s.MinimumConsumption == step.MinimumConsumption)
+                .Where(s => s.MinimumConsumption == step.MinimumConsumption && s.Id != step.Id)
                 .FirstOrDefaultAsync();
 
             if(result == null)
@@ -42,6 +42,29 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             if(step.MinimumConsumption != 0)
             {
                 await DeleteAsync(step);
+            }
+        }
+
+        public async Task UpdateStepAsync(Step step)
+        {
+            var result = await _context.Steps
+                .Where(s => s.MinimumConsumption == step.MinimumConsumption && s.Id != step.Id)
+                .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                result = await _context.Steps.AsNoTracking().FirstOrDefaultAsync();
+
+                if (result.Id == step.Id)
+                {
+                    step.MinimumConsumption = 0;
+                    await UpdateAsync(step);
+                }
+                else
+                {
+                    await UpdateAsync(step);
+                }
+
             }
         }
     }

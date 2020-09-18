@@ -62,7 +62,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MaximumConsumption,Price")] Step step)
+        public async Task<IActionResult> Create([Bind("Id,MinimumConsumption,Price")] Step step)
         {
             if (ModelState.IsValid)
             {
@@ -88,13 +88,13 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        //TODO: Don't let update if there's already a step with the same max consumption, or if the step is the 0 minimum consumption step
+        //TODO: Don't let update if it's the 0 consumption step
         // POST: Steps/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MaximumConsumption,Price")] Step step)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MinimumConsumption,Price")] Step step)
         {
             if (id != step.Id)
             {
@@ -105,8 +105,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 try
                 {
-                    _context.Update(step);
-                    await _context.SaveChangesAsync();
+                    await _stepRepository.UpdateStepAsync(step);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
