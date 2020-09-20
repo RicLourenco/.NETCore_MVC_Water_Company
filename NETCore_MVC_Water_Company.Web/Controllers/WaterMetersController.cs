@@ -151,6 +151,9 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            //var waterMeter = await _context.WaterMeters.FindAsync(id);
+            //await _waterMeterRepository.DeleteWaterMeterWithBills(waterMeter);
+            //await _context.WaterMeters.Remove();
             var waterMeter = await _context.WaterMeters.FindAsync(id);
             _context.WaterMeters.Remove(waterMeter);
             await _context.SaveChangesAsync();

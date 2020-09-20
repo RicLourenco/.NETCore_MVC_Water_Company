@@ -56,19 +56,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 return 0;
             }
 
-            var result = await _context.Bills
-                .Where(b => b.MonthYear == bill.MonthYear
-                && b.WaterMeterId == bill.WaterMeterId)
-                .FirstOrDefaultAsync();
-
-            if (result == null)
-            {
-                _context.Bills.Update(bill);
-                await _context.SaveChangesAsync();
-                return waterMeter.Id;
-            }
-
-            return 0;
+            _context.Bills.Update(bill);
+            await _context.SaveChangesAsync();
+            return waterMeter.Id;
         }
 
         public async Task<WaterMeter> GetWaterMeterWithBillsAsync(int id)

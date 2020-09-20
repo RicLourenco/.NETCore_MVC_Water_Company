@@ -66,7 +66,6 @@
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            //TODO: add necessary repositories after finishing entities and repositories
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
@@ -74,8 +73,6 @@
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IStepRepository, StepRepository>();
             services.AddScoped<IWaterMeterRepository, WaterMeterRepository>();
-            //services.AddScoped<IClientRepository, ClientRepository>();
-            //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>

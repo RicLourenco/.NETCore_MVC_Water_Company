@@ -15,11 +15,7 @@
 
         public DbSet<City> Cities { get; set; }
 
-        //public DbSet<Client> Clients { get; set; }
-
         public DbSet<Document> Documents { get; set; }
-
-        //public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Step> Steps { get; set; }
 
@@ -36,7 +32,7 @@
                 .HasIndex(u => new { u.DocumentNumber, u.TIN })
                 .IsUnique();
 
-            ///Disables cascade deleting
+            //Disables cascade deleting
             var cascadeFKs = modelbuilder.Model
                 .GetEntityTypes()
                 .SelectMany(t => t.GetForeignKeys())
@@ -44,8 +40,15 @@
 
             foreach(var fk in cascadeFKs)
             {
-                fk.DeleteBehavior = DeleteBehavior.Restrict;
+                fk.DeleteBehavior = DeleteBehavior.Cascade;
             }
+
+            //Enable delete cascade on the waterMeter => bills
+            modelbuilder.Entity<WaterMeter>()
+                .HasMany(w => w.Bills)
+                .WithOne(b => b.WaterMeter)
+                .HasForeignKey(b => b.WaterMeterId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelbuilder);
         }

@@ -38,8 +38,5 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         public WaterMeter WaterMeter { get; set; }
-
-
-        public Step Step { get; set; }
     }
 }

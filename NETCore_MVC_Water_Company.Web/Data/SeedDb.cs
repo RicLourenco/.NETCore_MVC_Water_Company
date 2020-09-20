@@ -98,10 +98,12 @@
             //}
         }
 
-        //async Task GetAPICitiesAsync()
-        //{
+        async Task GetAPICitiesAsync()
+        {
+            var path = "https://dados.gov.pt/s/resources/concelhos-de-portugal/20181112-193416/concelhos-metadata.xlsx";
 
-        //}
+
+        }
 
         async Task AddDocument(string name)
         {
