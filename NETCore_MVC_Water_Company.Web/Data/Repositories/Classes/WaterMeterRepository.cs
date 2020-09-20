@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
 using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
@@ -12,10 +13,25 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
     public class WaterMeterRepository : GenericRepository<WaterMeter>, IWaterMeterRepository
     {
         readonly DataContext _context;
+        readonly IBillRepository _billRepository;
 
-        public WaterMeterRepository(DataContext context): base(context)
+        public WaterMeterRepository(
+            DataContext context,
+            IBillRepository billRepository)
+            : base(context)
         {
             _context = context;
+            _billRepository = billRepository;
+        }
+
+        public async Task DeleteWaterMeterWithBills(WaterMeter waterMeter)
+        {
+            foreach(var bill in waterMeter.Bills)
+            {
+                await _billRepository.DeleteAsync(bill);
+            }
+
+            await DeleteAsync(waterMeter);
         }
 
         public IQueryable GetWaterMetersWithBills()
@@ -31,5 +47,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 .Where(w => w.Id == id)
                 .FirstOrDefaultAsync();
         }
+
+        
     }
 }

@@ -12,5 +12,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
         IQueryable GetWaterMetersWithBills();
 
         Task<WaterMeter> GetWaterMeterWithBillsAsync(int id);
+
+        Task DeleteWaterMeterWithBills(WaterMeter waterMeter);
     }
 }

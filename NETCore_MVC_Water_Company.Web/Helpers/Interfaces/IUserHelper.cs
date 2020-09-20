@@ -27,6 +27,8 @@
 
         Task AddUserToRoleAsync(User user, string roleName);
 
+        Task RemoveUserFromRoles(User user, string roleName);
+
         Task<string> GenerateEmailConfirmationTokenAsync(User user);
 
         Task<IdentityResult> ConfirmEmailAsync(User user, string token);

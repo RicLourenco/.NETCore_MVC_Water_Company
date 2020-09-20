@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace NETCore_MVC_Water_Company.Web.Data.Entities
+namespace NETCore_MVC_Water_Company.Web.Models
 {
-    public class Bill : IEntity
+    public class BillViewModel
     {
         public int Id { get; set; }
 
@@ -35,11 +38,5 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         public int WaterMeterId { get; set; }
-
-
-        public WaterMeter WaterMeter { get; set; }
-
-
-        public Step Step { get; set; }
     }
 }

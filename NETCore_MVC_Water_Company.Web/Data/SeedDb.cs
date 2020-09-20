@@ -89,30 +89,6 @@
                 {
                     await _userHelper.AddUserToRoleAsync(user, "Admin");
                 }
-
-                //Employee employee = new Employee
-                //{
-                //    IBAN = "PT501234567890",
-                //    User = new User
-                //    {
-                //        FirstNames = "Ricardo Filipe",
-                //        LastNames = "Lourenço Pinto",
-                //        BirthDate = Convert.ToDateTime(DateTime.ParseExact("14-05-1995", "dd-MM-yyyy", CultureInfo.InvariantCulture)),
-                //        Email = "ricardo.pinto.lourenco@formandos.cinel.pt",
-                //        UserName = "ricardo.pinto.lourenco@formandos.cinel.pt",
-                //        PhoneNumber = "987654321",
-                //        Gender = 0,
-                //        TIN = "271313862",
-                //        Address = "Rua das Flores, n.15, 3esq.",
-                //        DocumentNumber = "123456789",
-                //        Document = new Document
-                //        {
-                //            Name = "Cartão de cidadão"
-                //        }
-                //    }
-                //};
-
-                //await _employeeRepository.AddEmployeeWithUserAsync(employee, "NTIyiit1234!");
             }
 
             //if (!_context.Cities.Any())

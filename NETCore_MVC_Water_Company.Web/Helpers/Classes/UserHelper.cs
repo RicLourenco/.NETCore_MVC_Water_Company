@@ -29,6 +29,11 @@
             await _userManager.AddToRoleAsync(user, roleName);
         }
 
+        public async Task RemoveUserFromRoles(User user, string roleName)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roleName);
+        }
+
         public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword)
         {
             return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);

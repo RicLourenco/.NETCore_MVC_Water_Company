@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
+    [Authorize]
     public class StepsController : Controller
     {
         readonly DataContext _context;
@@ -28,7 +30,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         // GET: Steps
         public IActionResult Index()
         {
-            //return View(await _context.Steps.ToListAsync());
             return View(_stepRepository.GetStepsOrdered());
         }
 
@@ -51,6 +52,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
         // GET: Steps/Create
+        [Authorize(Roles = "Admin,Employee")]
         public IActionResult Create()
         {
             return View();
@@ -62,6 +64,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([Bind("Id,MinimumConsumption,Price")] Step step)
         {
             if (ModelState.IsValid)
@@ -73,6 +76,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
         // GET: Steps/Edit/5
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,12 +92,13 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        //TODO: Don't let update if it's the 0 consumption step
+        //TODO: error messages
         // POST: Steps/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,MinimumConsumption,Price")] Step step)
         {
             if (id != step.Id)
@@ -124,6 +129,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
         // GET: Steps/Delete/5
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,6 +151,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         // POST: Steps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var step = await _context.Steps.FindAsync(id);

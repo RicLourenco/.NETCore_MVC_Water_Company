@@ -1,18 +1,20 @@
-﻿using System;
+﻿using NETCore_MVC_Water_Company.Web.Data.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using NETCore_MVC_Water_Company.Web.Data.Entities;
-using Org.BouncyCastle.Bcpg;
 
-namespace NETCore_MVC_Water_Company.Web.Data.Entities
+namespace NETCore_MVC_Water_Company.Web.Models
 {
-    public class WaterMeter : IEntity
+    public class WaterMeterViewModel
     {
         [Display(Name = "Serial number")]
         public int Id { get; set; }
+
+
+        [Required]
+        public User User { get; set; }
 
 
         [Required]
