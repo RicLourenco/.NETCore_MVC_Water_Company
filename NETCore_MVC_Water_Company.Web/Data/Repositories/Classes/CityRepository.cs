@@ -17,6 +17,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             _context = context;
         }
 
+        public IQueryable GetCitiesOrdered() =>
+            _context.Cities.OrderBy(c => c.Name);
+
         public IEnumerable<SelectListItem> GetComboCities()
         {
             var list = _context.Cities.Select(

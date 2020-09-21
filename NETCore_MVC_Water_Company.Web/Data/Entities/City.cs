@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         [Required]
+        [JsonProperty("name")]
         public string Name { get; set; }
     }
 }

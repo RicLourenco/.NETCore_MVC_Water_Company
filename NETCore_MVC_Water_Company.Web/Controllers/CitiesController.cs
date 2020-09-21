@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
+using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
@@ -15,16 +16,22 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
     public class CitiesController : Controller
     {
         private readonly DataContext _context;
+        readonly ICityRepository _cityRepository;
 
-        public CitiesController(DataContext context)
+        public CitiesController(
+            DataContext context,
+            ICityRepository cityRepository)
         {
             _context = context;
+            _cityRepository = cityRepository;
         }
 
         // GET: Cities
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Cities.ToListAsync());
+            //return View(await _context.Cities.ToListAsync());
+
+            return View(_cityRepository.GetCitiesOrdered());
         }
 
         // GET: Cities/Details/5

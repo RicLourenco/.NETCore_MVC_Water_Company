@@ -11,17 +11,22 @@
     using System.Linq;
     using System.Threading.Tasks;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     public class SeedDb
     {
         readonly DataContext _context;
         readonly IUserHelper _userHelper;
+        readonly IApiHelper _apiHelper;
 
-
-        public SeedDb(DataContext context, IUserHelper userHelper)
+        public SeedDb(
+            DataContext context,
+            IUserHelper userHelper,
+            IApiHelper apiHelper)
         {
             _context = context;
             _userHelper = userHelper;
+            _apiHelper = apiHelper;
         }
 
         public UserHelper UserHelper { get; }
@@ -91,18 +96,28 @@
                 }
             }
 
-            //if (!_context.Cities.Any())
-            //{
-            //    await GetAPICitiesAsync();
-            //    await _context.SaveChangesAsync();
-            //}
+            if (!_context.Cities.Any())
+            {
+                await GetAPICitiesAsync();
+            }
         }
 
         async Task GetAPICitiesAsync()
         {
-            var path = "https://dados.gov.pt/s/resources/concelhos-de-portugal/20181112-193416/concelhos-metadata.xlsx";
+            var cities = await _apiHelper.GetCitiesFromApiAsync();
 
+            foreach(var city in cities)
+            {
+                await _context.Cities.AddAsync(city);
+            }
 
+            await _context.SaveChangesAsync();
+
+            var duplicates = _context.Cities.GroupBy(c => c.Name).SelectMany(grp => grp.Skip(1));
+
+            _context.Cities.RemoveRange(duplicates);
+
+            await _context.SaveChangesAsync();
         }
 
         async Task AddDocument(string name)

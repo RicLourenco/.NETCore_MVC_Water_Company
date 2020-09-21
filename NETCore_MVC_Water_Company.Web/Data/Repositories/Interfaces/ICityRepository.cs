@@ -10,5 +10,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
     public interface ICityRepository : IGenericRepository<City>
     {
         IEnumerable<SelectListItem> GetComboCities();
+
+        IQueryable GetCitiesOrdered();
     }
 }
