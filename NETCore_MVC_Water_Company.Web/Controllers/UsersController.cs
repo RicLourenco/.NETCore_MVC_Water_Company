@@ -51,19 +51,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(user);
         }
 
-
-        public async Task<IActionResult> CreateWaterMeter(string id)
-        {
-            var user = await _userHelper.GetUserByIdAsync(id);
-
-            var waterMeter = new WaterMeter
-            {
-                User = user
-            };
-
-            return RedirectToAction("Create", "WaterMeters", waterMeter);
-        }
-
         //// GET: Cities/Edit/5
         //public async Task<IActionResult> Edit(int? id)
         //{

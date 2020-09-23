@@ -28,6 +28,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
+
             modelbuilder.Entity<User>()
                 .HasIndex(u => new { u.DocumentNumber, u.TIN })
                 .IsUnique();
@@ -43,12 +44,19 @@
                 fk.DeleteBehavior = DeleteBehavior.Cascade;
             }
 
-            //Enable delete cascade on the waterMeter => bills
+            //Enable cascade deleting on the waterMeter => bills
             modelbuilder.Entity<WaterMeter>()
                 .HasMany(w => w.Bills)
                 .WithOne(b => b.WaterMeter)
                 .HasForeignKey(b => b.WaterMeterId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //Enable cascade deleting on user => watermeters
+            //modelbuilder.Entity<User>()
+            //    .HasMany(u => u.WaterMeters)
+            //    .WithOne(w => w.User)
+            //    .HasForeignKey(w => w.User)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelbuilder);
         }

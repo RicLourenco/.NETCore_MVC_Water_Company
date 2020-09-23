@@ -66,52 +66,52 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
 
         [Authorize(Roles = "Admin,Employee")]
         // GET: WaterMeters/Create
-        public async Task<IActionResult> Create(WaterMeter waterMeter /*string userId*/)
+        public IActionResult Create(string id)
         {
-            //if (userId == null)
-            //{
-            //    RedirectToAction("Index");
-            //}
-
-            //var user = await _userHelper.GetUserByIdAsync(userId);
-
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var waterMeter = new WaterMeter
-            //{
-            //    User = user
-            //};
-
-            //return View(waterMeter);
-
-            if(waterMeter == null)
+            if(string.IsNullOrWhiteSpace(id))
             {
-                return RedirectToAction("Index");
+                return NotFound();
             }
 
-            return View(waterMeter);
+            WaterMeterViewModel model = new WaterMeterViewModel
+            {
+                UserId = id
+            };
+
+            return View(model);
         }
 
         // POST: WaterMeters/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin,Employee")]
-        [ActionName("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateConfirmed(WaterMeter waterMeter)
+        public async Task<IActionResult> Create(WaterMeterViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userHelper.GetUserByIdAsync(model.UserId);
+
+                var waterMeter = new WaterMeter
+                {
+                    Address = model.Address,
+                    City = model.City,
+                    MeterState = model.MeterState,
+                    TotalConsumption = model.TotalConsumption,
+                    ZipCode = model.ZipCode,
+                    User = user
+                };
+
                 _context.Add(waterMeter);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(waterMeter);
+
+            return View(model);
         }
+
+
 
         // GET: WaterMeters/Edit/5
         [Authorize(Roles = "Admin,Employee")]
