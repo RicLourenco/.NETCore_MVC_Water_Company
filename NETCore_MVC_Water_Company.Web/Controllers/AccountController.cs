@@ -16,6 +16,7 @@
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using NETCore_MVC_Water_Company.Web.Models;
 
+
     public class AccountController : Controller
     {
         readonly IUserHelper _userHelper;
@@ -89,7 +90,7 @@
             return View();
         }
 
-        //TODO: NOT SENDING E-MAILS
+        //TODO: user doesn't need to confirm e-mail to login
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
@@ -99,7 +100,7 @@
 
                 if (user == null)
                 {
-                    var document = await _documentRepository.GetByIdAsync(model.DocumentId);
+
 
                     user = new User
                     {
@@ -111,7 +112,6 @@
                         PhoneNumber = model.PhoneNumber,
                         DocumentId = model.DocumentId,
                         DocumentNumber = model.DocumentNumber,
-                        //Document = document,
                         TIN = model.TIN,
                         Gender = 2
                     };

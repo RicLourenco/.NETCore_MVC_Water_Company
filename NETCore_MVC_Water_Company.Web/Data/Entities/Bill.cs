@@ -26,7 +26,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         [Required]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         [Display(Name = "Price")]
-        public decimal FinalValue { get; set; }
+        public float FinalValue { get; set; }
 
 
         [Required]

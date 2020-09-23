@@ -12,6 +12,8 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="User" />
+
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
@@ -44,4 +46,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

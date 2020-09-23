@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
 using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
+using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,17 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
     {
         readonly DataContext _context;
         readonly IBillRepository _billRepository;
+        readonly IUserHelper _userHelper;
 
         public WaterMeterRepository(
             DataContext context,
-            IBillRepository billRepository)
+            IBillRepository billRepository,
+            IUserHelper userHelper)
             : base(context)
         {
             _context = context;
             _billRepository = billRepository;
+            _userHelper = userHelper;
         }
 
         public async Task DeleteWaterMeterWithBills(WaterMeter waterMeter)
@@ -34,12 +38,6 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             await DeleteAsync(waterMeter);
         }
 
-        public IQueryable GetWaterMetersWithBills()
-        {
-            return _context.WaterMeters
-                .Include(w => w.Bills);
-        }
-
         public async Task<WaterMeter> GetWaterMeterWithBillsAsync(int id)
         {
             return await _context.WaterMeters
@@ -48,6 +46,37 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 .FirstOrDefaultAsync();
         }
 
-        
+        public async Task<IQueryable<WaterMeter>> GetWaterMetersAsync(string userName)
+        {
+            var user = await _userHelper.GetUserByEmailAsync(userName);
+
+            if(user == null)
+            {
+                return null;
+            }
+
+            if(await _userHelper.IsUserInRoleAsync(user, "Admin")
+                || await _userHelper.IsUserInRoleAsync(user, "Employee"))
+            {
+                return _context.WaterMeters
+                    .Include(w => w.User)
+                    .Include(w => w.Bills);
+            }
+
+            return _context.WaterMeters
+                    .Include(w => w.User)
+                    .Include(w => w.Bills)
+                    .Where(w => w.User == user);
+        }
+
+        //TODO: associate meter with user of choosing
+        public async Task CreateWaterMeter(WaterMeter waterMeter, string userName)
+        {
+            var user = await _userHelper.GetUserByEmailAsync(userName);
+
+            waterMeter.User = user;
+
+            await CreateAsync(waterMeter);
+        }
     }
 }

@@ -9,10 +9,12 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 {
     public interface IWaterMeterRepository : IGenericRepository<WaterMeter>
     {
-        IQueryable GetWaterMetersWithBills();
-
         Task<WaterMeter> GetWaterMeterWithBillsAsync(int id);
 
         Task DeleteWaterMeterWithBills(WaterMeter waterMeter);
+
+        Task<IQueryable<WaterMeter>> GetWaterMetersAsync(string userName);
+
+        Task CreateWaterMeter(WaterMeter waterMeter, string userName);
     }
 }

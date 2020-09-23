@@ -60,6 +60,6 @@
         public string IBAN { get; set; }
 
 
-        public IEnumerable<WaterMeter> WaterMeters { get; set; }
+        public ICollection<WaterMeter> WaterMeters { get; set; }
     }
 }

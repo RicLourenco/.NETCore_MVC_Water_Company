@@ -58,6 +58,11 @@
                 await _context.SaveChangesAsync();
             }
 
+            if (!_context.Cities.Any())
+            {
+                await GetAPICitiesAsync();
+            }
+
             var user = await _userHelper.GetUserByEmailAsync("ricardo.pinto.lourenco@formandos.cinel.pt");
 
             if (user == null)
@@ -74,7 +79,8 @@
                     TIN = "271313862",
                     Address = "Rua das Flores, n.15, 3esq.",
                     DocumentNumber = "123456789",
-                    Document = _context.Documents.FirstOrDefault()
+                    Document = _context.Documents.FirstOrDefault(),
+                    EmailConfirmed = true
                 };
 
                 var result = await _userHelper.AddUserAsync(user, "%gURn73e");
@@ -94,11 +100,6 @@
                 {
                     await _userHelper.AddUserToRoleAsync(user, "Admin");
                 }
-            }
-
-            if (!_context.Cities.Any())
-            {
-                await GetAPICitiesAsync();
             }
         }
 
@@ -120,12 +121,14 @@
             await _context.SaveChangesAsync();
         }
 
+
         async Task AddDocument(string name)
         {
             await _context.Documents.AddAsync( new Document{
                 Name = name
             });
         }
+
 
         async Task AddStep(float minimumConsumption, float price)
         {

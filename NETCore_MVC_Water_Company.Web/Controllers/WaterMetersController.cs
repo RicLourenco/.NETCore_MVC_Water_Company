@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
 using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
+using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
 using NETCore_MVC_Water_Company.Web.Models;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
@@ -19,21 +21,28 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         readonly DataContext _context;
         readonly IWaterMeterRepository _waterMeterRepository;
         readonly IBillRepository _billRepository;
+        readonly IStepRepository _stepRepository;
+        readonly IUserHelper _userHelper;
 
         public WaterMetersController(
             DataContext context,
             IWaterMeterRepository waterMeterRepository,
-            IBillRepository billRepository)
+            IBillRepository billRepository,
+            IStepRepository stepRepository,
+            IUserHelper userHelper)
         {
             _context = context;
             _waterMeterRepository = waterMeterRepository;
             _billRepository = billRepository;
+            _stepRepository = stepRepository;
+            _userHelper = userHelper;
         }
 
         // GET: WaterMeters
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_waterMeterRepository.GetWaterMetersWithBills());
+            var model = await _waterMeterRepository.GetWaterMetersAsync(User.Identity.Name);
+            return View(model);
         }
 
         // GET: WaterMeters/Details/5
@@ -55,18 +64,45 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(waterMeter);
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         // GET: WaterMeters/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(WaterMeter waterMeter /*string userId*/)
         {
-            return View();
+            //if (userId == null)
+            //{
+            //    RedirectToAction("Index");
+            //}
+
+            //var user = await _userHelper.GetUserByIdAsync(userId);
+
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var waterMeter = new WaterMeter
+            //{
+            //    User = user
+            //};
+
+            //return View(waterMeter);
+
+            if(waterMeter == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(waterMeter);
         }
 
         // POST: WaterMeters/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin,Employee")]
+        [ActionName("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Address,TotalConsumption,MeterState,ZipCode")] WaterMeter waterMeter)
+        public async Task<IActionResult> CreateConfirmed(WaterMeter waterMeter)
         {
             if (ModelState.IsValid)
             {
@@ -78,6 +114,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
         // GET: WaterMeters/Edit/5
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,6 +133,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         // POST: WaterMeters/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Address,TotalConsumption,MeterState,ZipCode")] WaterMeter waterMeter)
@@ -129,6 +167,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
         // GET: WaterMeters/Delete/5
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,13 +186,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
         // POST: WaterMeters/Delete/5
+        [Authorize(Roles = "Admin,Employee")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //var waterMeter = await _context.WaterMeters.FindAsync(id);
-            //await _waterMeterRepository.DeleteWaterMeterWithBills(waterMeter);
-            //await _context.WaterMeters.Remove();
             var waterMeter = await _context.WaterMeters.FindAsync(id);
             _context.WaterMeters.Remove(waterMeter);
             await _context.SaveChangesAsync();
@@ -166,6 +203,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
 
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateBill(int? id)
         {
             if (id == null)
@@ -185,21 +223,23 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> CreateBill(BillViewModel model)
         {
             if (ModelState.IsValid)
             {
+                model.FinalValue = _stepRepository.CalculateFinalPrice(model.Consumption);
                 await _billRepository.InsertBillAsync(model);
 
                 return RedirectToAction($"Details/{model.WaterMeterId}");
             }
 
-            //TODO: don't know if returning the bill in the view will work
             return View(model);
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> DeleteBill(int? id)
         {
             if (id == null)
@@ -218,6 +258,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(bill);
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         [HttpPost, ActionName("DeleteBill")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteBillConfirmed(int id)
@@ -228,6 +269,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> EditBill(int? id)
         {
             if (id == null)
@@ -245,7 +287,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(bill);
         }
 
-
+        [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditBill(Bill bill)

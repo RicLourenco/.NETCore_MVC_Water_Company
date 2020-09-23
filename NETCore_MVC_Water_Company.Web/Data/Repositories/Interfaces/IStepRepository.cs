@@ -16,5 +16,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
         Task DeleteStepAsync(Step step);
 
         Task UpdateStepAsync(Step step);
+
+        float CalculateFinalPrice(float consumption);
     }
 }

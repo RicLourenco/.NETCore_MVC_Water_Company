@@ -5,6 +5,9 @@
     using NETCore_MVC_Water_Company.Web.Models;
     using System.Threading.Tasks;
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
+    using System.Linq;
+    using System.Collections;
+    using Microsoft.EntityFrameworkCore;
 
     public class UserHelper : IUserHelper
     {
@@ -22,6 +25,16 @@
         public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
             return await _userManager.CreateAsync(user, password);
+        }
+
+        public async Task<IEnumerable> GetAllUsers()
+        {
+            return await _userManager.Users.ToListAsync();
+        }
+
+        public async Task<IdentityResult> RemoveUserAsync(User user)
+        {
+            return await _userManager.DeleteAsync(user);
         }
 
         public async Task AddUserToRoleAsync(User user, string roleName)
@@ -113,5 +126,7 @@
                 password,
                 false);
         }
+
+
     }
 }

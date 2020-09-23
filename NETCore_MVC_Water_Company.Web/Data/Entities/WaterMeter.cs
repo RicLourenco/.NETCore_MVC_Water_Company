@@ -44,5 +44,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         public ICollection<Bill> Bills { get; set; }
+
+
+        public User User { get; set; }
     }
 }

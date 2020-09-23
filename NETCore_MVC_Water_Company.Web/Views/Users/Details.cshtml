@@ -1,0 +1,122 @@
+﻿@model NETCore_MVC_Water_Company.Web.Data.Entities.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WaterMeter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Document.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Document.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TIN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TIN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="CreateWaterMeter" asp-route-id="@Model.Id">Create new water meter</a>
+
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<h4>Water meters</h4>
+@if (Model.WaterMeters == null | Model.WaterMeters.Count == 0)
+{
+    <h5>No water meters</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WaterMeters.FirstOrDefault().Id)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WaterMeters.OrderBy(c => c.Id))
+            {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(modelItem => item.City.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.Name)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(modelItem => item.TotalConsumption)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalConsumption)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(modelItem => item.MeterState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeterState)
+                </td>
+                <td id="@item.Id">
+                    <!--<a asp-action="EditBill" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteBill" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>-->
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

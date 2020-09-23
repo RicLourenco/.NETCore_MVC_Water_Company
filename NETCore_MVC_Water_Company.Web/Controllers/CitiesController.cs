@@ -15,7 +15,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
     [Authorize]
     public class CitiesController : Controller
     {
-        private readonly DataContext _context;
+        readonly DataContext _context;
         readonly ICityRepository _cityRepository;
 
         public CitiesController(
@@ -44,6 +44,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
 
             var city = await _context.Cities
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (city == null)
             {
                 return NotFound();

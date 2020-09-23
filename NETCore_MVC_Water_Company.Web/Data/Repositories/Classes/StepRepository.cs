@@ -67,5 +67,24 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
 
             }
         }
+
+        public float CalculateFinalPrice(float consumption)
+        {
+            var steps = _context.Steps.OrderByDescending(s => s.MinimumConsumption).ToList();
+
+            float finalPrice = 0;
+
+            foreach(var step in steps)
+            {
+                while (consumption >= step.MinimumConsumption)
+                {
+                    finalPrice += (step.Price * 0.01f);
+
+                    consumption -= 0.01f;
+                }
+            }
+
+            return finalPrice;
+        }
     }
 }
