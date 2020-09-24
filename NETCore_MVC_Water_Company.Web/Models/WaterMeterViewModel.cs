@@ -1,4 +1,5 @@
-﻿using NETCore_MVC_Water_Company.Web.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NETCore_MVC_Water_Company.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,14 +15,6 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
 
         /// <summary>
-        /// Total accumulated consumption from day 1
-        /// </summary>
-        [Required]
-        [Display(Name = "Total consumption")]
-        public float TotalConsumption { get; set; }
-
-
-        /// <summary>
         /// Is meter active
         /// </summary>
         [Required]
@@ -29,7 +22,11 @@ namespace NETCore_MVC_Water_Company.Web.Models
         public bool MeterState { get; set; }
 
 
-        public City City { get; set; }
+        [Display(Name = "City")]
+        public int CityId { get; set; }
+
+
+        public IEnumerable<SelectListItem> Cities { get; set; }
 
 
         [Required]

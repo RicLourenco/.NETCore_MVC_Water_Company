@@ -32,7 +32,7 @@
 
         Task AddUserToRoleAsync(User user, string roleName);
 
-        Task RemoveUserFromRoles(User user, string roleName);
+        Task RemoveUserFromRoleAsync(User user, string roleName);
 
         Task<string> GenerateEmailConfirmationTokenAsync(User user);
 

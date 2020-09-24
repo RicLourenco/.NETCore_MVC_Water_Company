@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NETCore_MVC_Water_Company.Web.Data;
 
 namespace NETCore_MVC_Water_Company.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200924152056_RevertPreviousMigration")]
+    partial class RevertPreviousMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,7 +288,7 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
                     b.Property<string>("Address")
                         .IsRequired();
 
-                    b.Property<int>("CityId");
+                    b.Property<int?>("CityId");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -301,8 +303,7 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId")
-                        .IsUnique();
+                    b.HasIndex("CityId");
 
                     b.HasIndex("UserId");
 
@@ -376,9 +377,8 @@ namespace NETCore_MVC_Water_Company.Web.Migrations
             modelBuilder.Entity("NETCore_MVC_Water_Company.Web.Data.Entities.WaterMeter", b =>
                 {
                     b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.City", "City")
-                        .WithOne()
-                        .HasForeignKey("NETCore_MVC_Water_Company.Web.Data.Entities.WaterMeter", "CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("CityId");
 
                     b.HasOne("NETCore_MVC_Water_Company.Web.Data.Entities.User", "User")
                         .WithMany("WaterMeters")

@@ -14,6 +14,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
         [Required]
         [JsonProperty("name")]
+        [Display(Name = "City name")]
         public string Name { get; set; }
     }
 }

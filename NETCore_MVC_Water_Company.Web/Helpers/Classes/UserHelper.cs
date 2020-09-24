@@ -42,7 +42,12 @@
             await _userManager.AddToRoleAsync(user, roleName);
         }
 
-        public async Task RemoveUserFromRoles(User user, string roleName)
+        //public async Task<> GetAllRolesAsync()
+        //{
+
+        //}
+
+        public async Task RemoveUserFromRoleAsync(User user, string roleName)
         {
             await _userManager.RemoveFromRoleAsync(user, roleName);
         }

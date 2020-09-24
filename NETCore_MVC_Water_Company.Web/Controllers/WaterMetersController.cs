@@ -24,12 +24,14 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         readonly IBillRepository _billRepository;
         readonly IStepRepository _stepRepository;
         readonly IUserHelper _userHelper;
+        readonly ICityRepository _cityRepository;
 
         public WaterMetersController(
             DataContext context,
             IWaterMeterRepository waterMeterRepository,
             IBillRepository billRepository,
             IStepRepository stepRepository,
+            ICityRepository cityRepository,
             IUserHelper userHelper)
         {
             _context = context;
@@ -37,6 +39,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _billRepository = billRepository;
             _stepRepository = stepRepository;
             _userHelper = userHelper;
+            _cityRepository = cityRepository;
         }
 
         // GET: WaterMeters
@@ -76,6 +79,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
 
             WaterMeterViewModel model = new WaterMeterViewModel
             {
+                Cities = _cityRepository.GetComboCities(),
                 UserId = id
             };
 
@@ -94,19 +98,21 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 var user = await _userHelper.GetUserByIdAsync(model.UserId);
 
+                var city = await _cityRepository.GetByIdAsync(model.CityId);
+
                 var waterMeter = new WaterMeter
                 {
                     Address = model.Address,
-                    City = model.City,
+                    CityId = model.CityId,
+                    //City = city,
                     MeterState = model.MeterState,
-                    TotalConsumption = model.TotalConsumption,
+                    TotalConsumption = 0,
                     ZipCode = model.ZipCode,
                     CreationDate = DateTime.UtcNow,
                     User = user
                 };
 
-                _context.Add(waterMeter);
-                await _context.SaveChangesAsync();
+                await _waterMeterRepository.CreateAsync(waterMeter);
                 return RedirectToAction(nameof(Index));
             }
 

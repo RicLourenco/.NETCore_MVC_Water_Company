@@ -64,6 +64,11 @@
                 .WithOne(w => w.User)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelbuilder.Entity<WaterMeter>()
+                .HasOne(w => w.City)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelbuilder);
         }
     }

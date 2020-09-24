@@ -42,6 +42,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
         {
             return await _context.WaterMeters
                 .Include(w => w.Bills)
+                .Include(w => w.City)
                 .Where(w => w.Id == id)
                 .FirstOrDefaultAsync();
         }
@@ -60,12 +61,14 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             {
                 return _context.WaterMeters
                     .Include(w => w.User)
-                    .Include(w => w.Bills);
+                    .Include(w => w.Bills)
+                    .Include(w => w.City);
             }
 
             return _context.WaterMeters
                     .Include(w => w.User)
                     .Include(w => w.Bills)
+                    .Include(w => w.City)
                     .Where(w => w.User == user);
         }
 

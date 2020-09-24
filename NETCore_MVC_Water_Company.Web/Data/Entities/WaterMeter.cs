@@ -36,6 +36,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public bool MeterState { get; set; }
 
 
+        public int CityId { get; set; }
+
+
         public City City { get; set; }
 
 

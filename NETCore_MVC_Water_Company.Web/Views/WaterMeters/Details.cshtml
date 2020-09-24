@@ -29,6 +29,12 @@
             @Html.DisplayFor(model => model.MeterState)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.City.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City.Name)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.ZipCode)
         </dt>
         <dd>
@@ -59,7 +65,7 @@ else
     <table class="table">
         <thead>
             <tr>
-                <h5>Bills list</h5>
+                Bill list
             </tr>
         </thead>
         <tbody>
