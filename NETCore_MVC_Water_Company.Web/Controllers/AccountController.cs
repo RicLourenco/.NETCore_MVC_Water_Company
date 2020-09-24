@@ -90,7 +90,7 @@
             return View();
         }
 
-        //TODO: user doesn't need to confirm e-mail to login
+        //TODO: fix user not needing to confirm e-mail to login
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
@@ -100,8 +100,6 @@
 
                 if (user == null)
                 {
-
-
                     user = new User
                     {
                         FirstNames = model.FirstNames,

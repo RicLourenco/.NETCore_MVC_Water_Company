@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
 using Org.BouncyCastle.Bcpg;
 
@@ -41,6 +42,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         [Required]
         [Display(Name = "Zip code")]
         public string ZipCode { get; set; }
+
+        [Display(Name = "Registration date")]
+        public DateTime CreationDate { get; set; }
 
 
         public ICollection<Bill> Bills { get; set; }

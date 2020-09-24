@@ -13,7 +13,8 @@ using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
-    [Authorize]
+    //TODO: error messages
+    [Authorize(Roles = "Admin,Employee")]
     public class StepsController : Controller
     {
         readonly DataContext _context;
@@ -58,7 +59,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View();
         }
 
-        //TODO: Show error message when inserting steps with same max consumption
         // POST: Steps/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -92,7 +92,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        //TODO: error messages
         // POST: Steps/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -147,7 +146,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        //TODO: show error message when deleting step where min consumption == 0
         // POST: Steps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

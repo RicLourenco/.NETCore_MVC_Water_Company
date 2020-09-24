@@ -13,6 +13,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 
         Task<int> UpdateBillAsync(Bill bill);
 
+        Task DeleteBillAsync(int id);
+
         Task<WaterMeter> GetWaterMeterWithBillsAsync(int id);
     }
 }

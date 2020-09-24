@@ -12,7 +12,7 @@ using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Employee")]
     public class CitiesController : Controller
     {
         readonly DataContext _context;

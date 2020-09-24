@@ -28,11 +28,6 @@
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-
-            modelbuilder.Entity<User>()
-                .HasIndex(u => new { u.DocumentNumber, u.TIN })
-                .IsUnique();
-
             //Disables cascade deleting
             var cascadeFKs = modelbuilder.Model
                 .GetEntityTypes()
@@ -44,6 +39,18 @@
                 fk.DeleteBehavior = DeleteBehavior.Cascade;
             }
 
+            modelbuilder.Entity<User>()
+                .HasIndex(u => new { u.DocumentNumber, u.TIN , u.IBAN})
+                .IsUnique();
+
+            modelbuilder.Entity<WaterMeter>()
+                .HasIndex(w => new { w.Address, w.ZipCode })
+                .IsUnique();
+
+            modelbuilder.Entity<Step>()
+                .HasIndex(s => s.MinimumConsumption)
+                .IsUnique();
+
             //Enable cascade deleting on the waterMeter => bills
             modelbuilder.Entity<WaterMeter>()
                 .HasMany(w => w.Bills)
@@ -52,11 +59,10 @@
                 .OnDelete(DeleteBehavior.Cascade);
 
             //Enable cascade deleting on user => watermeters
-            //modelbuilder.Entity<User>()
-            //    .HasMany(u => u.WaterMeters)
-            //    .WithOne(w => w.User)
-            //    .HasForeignKey(w => w.User)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelbuilder.Entity<User>()
+                .HasMany(u => u.WaterMeters)
+                .WithOne(w => w.User)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelbuilder);
         }

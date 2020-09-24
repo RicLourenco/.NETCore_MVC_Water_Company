@@ -69,7 +69,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                     .Where(w => w.User == user);
         }
 
-        //TODO: associate meter with user of choosing
+        //TODO: try using this method instead of doing it in the controller directly
         public async Task CreateWaterMeter(WaterMeter waterMeter, string userName)
         {
             var user = await _userHelper.GetUserByEmailAsync(userName);

@@ -34,6 +34,12 @@
         <dd>
             @Html.DisplayFor(model => model.ZipCode)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
     </dl>
 </div>
 <div>
@@ -53,16 +59,19 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Bills.FirstOrDefault().Id)
-                </th>
-                <th></th>
+                <h5>Bills list</h5>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Bills.OrderBy(c => c.MonthYear))
             {
             <tr>
+                <th>
+                    @Html.DisplayNameFor(modelItem => item.Id)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </th>
                 <td>
                     @Html.DisplayNameFor(modelItem => item.PaymentState)
                 </td>

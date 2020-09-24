@@ -103,33 +103,33 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         //    return View(city);
         //}
 
-        //// GET: Cities/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Cities/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
 
-        //    var city = await _context.Cities
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (city == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var user = await _context.Users.Include(u => u.WaterMeters).FirstOrDefaultAsync(u => u.Id == id);
 
-        //    return View(city);
-        //}
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //// POST: Cities/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var city = await _context.Cities.FindAsync(id);
-        //    _context.Cities.Remove(city);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            return View(user);
+        }
+
+        // POST: Cities/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

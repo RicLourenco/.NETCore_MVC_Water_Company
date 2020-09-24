@@ -20,17 +20,19 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// Consumption for specific month
         /// </summary>
         [Required]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public float Consumption { get; set; }
 
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         [Display(Name = "Price")]
         public float FinalValue { get; set; }
 
 
         [Required]
-        [Display(Name = "Bill date")]
+        [Display(Name = "Date")]
+        [DisplayFormat(DataFormatString = "{0:MM//yyyy}")]
         public DateTime MonthYear { get; set; }
 
 

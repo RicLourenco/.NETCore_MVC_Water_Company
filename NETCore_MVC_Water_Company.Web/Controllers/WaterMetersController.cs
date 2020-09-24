@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
@@ -100,6 +101,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                     MeterState = model.MeterState,
                     TotalConsumption = model.TotalConsumption,
                     ZipCode = model.ZipCode,
+                    CreationDate = DateTime.UtcNow,
                     User = user
                 };
 
@@ -263,9 +265,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteBillConfirmed(int id)
         {
-            var bill = await _context.Bills.FindAsync(id);
-            _context.Bills.Remove(bill);
-            await _context.SaveChangesAsync();
+            //var bill = await _context.Bills.FindAsync(id);
+            //_context.Bills.Remove(bill);
+            //await _context.SaveChangesAsync();
+
+            await _billRepository.DeleteBillAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
@@ -294,6 +298,8 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                bill.FinalValue = _stepRepository.CalculateFinalPrice(bill.Consumption);
+
                 var waterMeterId = await _billRepository.UpdateBillAsync(bill);
 
                 if(waterMeterId != 0)
