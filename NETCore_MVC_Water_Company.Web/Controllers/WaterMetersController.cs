@@ -58,7 +58,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             }
 
             var waterMeter = await _waterMeterRepository
-                .GetWaterMeterWithBillsAsync(id.Value);
+                .GetWaterMeterWithBillsAsync(id.Value, User.Identity.Name);
 
             if (waterMeter == null)
             {

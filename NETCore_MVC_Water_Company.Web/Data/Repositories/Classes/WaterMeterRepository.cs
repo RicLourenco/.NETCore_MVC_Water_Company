@@ -38,12 +38,29 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             await DeleteAsync(waterMeter);
         }
 
-        public async Task<WaterMeter> GetWaterMeterWithBillsAsync(int id)
+        public async Task<WaterMeter> GetWaterMeterWithBillsAsync(int id, string userName)
         {
-            return await _context.WaterMeters
+            var user = await _userHelper.GetUserByEmailAsync(userName);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (await _userHelper.IsUserInRoleAsync(user, "Admin")
+                || await _userHelper.IsUserInRoleAsync(user, "Employee"))
+            {
+                return await _context.WaterMeters
                 .Include(w => w.Bills)
                 .Include(w => w.City)
                 .Where(w => w.Id == id)
+                .FirstOrDefaultAsync();
+            }
+
+            return await _context.WaterMeters
+                .Include(w => w.Bills)
+                .Include(w => w.City)
+                .Where(w => w.Id == id && w.User == user)
                 .FirstOrDefaultAsync();
         }
 
