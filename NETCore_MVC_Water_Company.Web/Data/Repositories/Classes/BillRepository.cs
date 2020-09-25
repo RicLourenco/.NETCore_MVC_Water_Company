@@ -33,7 +33,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 return;
             }
 
-            //TODO: test further if these fully work, adn if they do, apply them on the update method
+            //TODO: test further if these fully work (on the create and edit)
             if ((model.MonthYear.Month < waterMeter.CreationDate.Month
                 && model.MonthYear.Year == waterMeter.CreationDate.Year)
                 || model.MonthYear.Year < waterMeter.CreationDate.Year)
@@ -78,6 +78,20 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             var waterMeter = await _context.WaterMeters.Where(w => w.Bills.Any(b => b.Id == bill.Id)).FirstOrDefaultAsync();
 
             if(waterMeter == null)
+            {
+                return 0;
+            }
+
+            if ((bill.MonthYear.Month < waterMeter.CreationDate.Month
+                && bill.MonthYear.Year == waterMeter.CreationDate.Year)
+                || bill.MonthYear.Year < waterMeter.CreationDate.Year)
+            {
+                return 0;
+            }
+
+            if ((bill.MonthYear.Month >= DateTime.UtcNow.Month
+                && bill.MonthYear.Year == DateTime.UtcNow.Year)
+                || bill.MonthYear.Year > DateTime.UtcNow.Year)
             {
                 return 0;
             }

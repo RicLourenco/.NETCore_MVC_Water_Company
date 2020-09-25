@@ -138,7 +138,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
 
             var model = new WaterMeterViewModel
             {
-                Id = waterMeter.Id,
+                MeterId = waterMeter.Id,
                 Address = waterMeter.Address,
                 TotalConsumption = waterMeter.TotalConsumption,
                 MeterState = waterMeter.MeterState,
@@ -159,7 +159,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, WaterMeterViewModel model)
         {
-            if (id != model.Id)
+            if (id != model.MeterId)
             {
                 return NotFound();
             }
@@ -170,7 +170,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 {
                     var waterMeter = new WaterMeter
                     {
-                        Id = model.Id,
+                        Id = model.MeterId,
                         Address = model.Address,
                         TotalConsumption = model.TotalConsumption,
                         MeterState = model.MeterState,
@@ -184,7 +184,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WaterMeterExists(model.Id))
+                    if (!WaterMeterExists(model.MeterId))
                     {
                         return NotFound();
                     }
