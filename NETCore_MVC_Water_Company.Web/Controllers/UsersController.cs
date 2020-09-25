@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
+using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
+using NETCore_MVC_Water_Company.Web.Helpers.Classes;
 using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
+using NETCore_MVC_Water_Company.Web.Models;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
@@ -17,13 +20,16 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
     {
         readonly DataContext _context;
         readonly IUserHelper _userHelper;
+        readonly IDocumentRepository _documentRepository;
 
         public UsersController(
             DataContext context,
-            IUserHelper userHelper)
+            IUserHelper userHelper,
+            IDocumentRepository documentRepository)
         {
             _context = context;
             _userHelper = userHelper;
+            _documentRepository = documentRepository;
         }
 
         // GET: Cities
@@ -32,7 +38,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(_context.Users.ToList());
         }
 
-        //TODO: user userhelper if there's time
         // GET: Cities/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -51,57 +56,91 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(user);
         }
 
-        //// GET: Cities/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [Authorize(Roles = "Admin,Employee")]
+        // GET: Cities/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var city = await _context.Cities.FindAsync(id);
+            var user = await _userHelper.GetUserByIdAsync(id);
 
-        //    if (city == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(city);
-        //}
+            if (user == null)
+            {
+                return NotFound();
+            }
 
+            var model = new ChangeUserViewModel
+            {
+                Id = user.Id,
+                FirstNames = user.FirstNames,
+                LastNames = user.LastNames,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                DocumentId = user.DocumentId,
+                DocumentNumber = user.DocumentNumber,
+                Documents = _documentRepository.GetComboDocuments(),
+                TIN = user.TIN,
+                IBAN = user.IBAN
+            };
+
+            return View(model);
+        }
+
+        //TODO: fix stamp error when updating
+        [Authorize(Roles = "Admin,Employee")]
         //// POST: Cities/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] City city)
-        //{
-        //    if (id != city.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, ChangeUserViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(city);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!CityExists(city.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(city);
-        //}
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = new User
+                    {
+                        FirstNames = model.FirstNames,
+                        LastNames = model.LastNames,
+                        Address = model.Address,
+                        PhoneNumber = model.PhoneNumber,
+                        DocumentId = model.DocumentId,
+                        DocumentNumber = model.DocumentNumber,
+                        TIN = model.TIN,
+                        IBAN = model.IBAN
+                    };
+
+                    await _userHelper.UpdateUserAsync(user);
+
+                    //_context.Update(user);
+                    //await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    var userExists = await _userHelper.GetUserByIdAsync(model.Id);
+
+                    if (model == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
 
         // GET: Cities/Delete/5
         public async Task<IActionResult> Delete(string id)

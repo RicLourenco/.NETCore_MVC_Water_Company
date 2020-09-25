@@ -12,7 +12,6 @@ using NETCore_MVC_Water_Company.Web.Data.Entities;
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
     [Authorize(Roles = "Admin,Employee")]
-    [Authorize]
     public class DocumentsController : Controller
     {
         private readonly DataContext _context;

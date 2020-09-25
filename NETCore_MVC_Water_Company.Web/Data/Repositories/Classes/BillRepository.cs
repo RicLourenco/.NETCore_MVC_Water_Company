@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
 {
-    //TODO: don't allow creation or edition  if the bill date is either lower than the meter's creation, or higher than the current date
     public class BillRepository : GenericRepository<Bill>, IBillRepository
     {
         readonly DataContext _context;
@@ -29,12 +28,33 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 return;
             }
 
-            var result = await _context.Bills
-                .Where(b => b.MonthYear == model.MonthYear
+            if (!waterMeter.MeterState)
+            {
+                return;
+            }
+
+            //TODO: test further if these fully work, adn if they do, apply them on the update method
+            if ((model.MonthYear.Month < waterMeter.CreationDate.Month
+                && model.MonthYear.Year == waterMeter.CreationDate.Year)
+                || model.MonthYear.Year < waterMeter.CreationDate.Year)
+            {
+                return;
+            }
+
+            if((model.MonthYear.Month >= DateTime.UtcNow.Month
+                && model.MonthYear.Year == DateTime.UtcNow.Year)
+                || model.MonthYear.Year > DateTime.UtcNow.Year)
+            {
+                return;
+            }
+
+            var bill = await _context.Bills
+                .Where(b => b.MonthYear.Month == model.MonthYear.Month
+                && b.MonthYear.Year == model.MonthYear.Year
                 && b.WaterMeterId == model.WaterMeterId)
                 .FirstOrDefaultAsync();
 
-            if(result == null)
+            if(bill == null)
             {
                 waterMeter.Bills.Add(
                     new Bill
@@ -45,16 +65,14 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                         PaymentState = model.PaymentState
                     });
 
-                //added line
                 waterMeter.TotalConsumption += model.Consumption;
-                //end
 
                 _context.WaterMeters.Update(waterMeter);
                 await _context.SaveChangesAsync();
             }
         }
 
-        //TODO: calculate new price and don't allow edition of the date 
+        //TODO: calculate new price
         public async Task<int> UpdateBillAsync(Bill bill)
         {
             var waterMeter = await _context.WaterMeters.Where(w => w.Bills.Any(b => b.Id == bill.Id)).FirstOrDefaultAsync();

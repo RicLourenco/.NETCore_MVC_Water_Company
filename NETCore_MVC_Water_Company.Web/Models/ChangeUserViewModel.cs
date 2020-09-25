@@ -9,6 +9,9 @@ namespace NETCore_MVC_Water_Company.Web.Models
 {
     public class ChangeUserViewModel
     {
+        public string Id { get; set; }
+
+
         [Required]
         [Display(Name = "First name")]
         public string FirstNames { get; set; }
@@ -43,6 +46,7 @@ namespace NETCore_MVC_Water_Company.Web.Models
         public string TIN { get; set; }
 
 
+        [Display(Name = "International bank account number")]
         public string IBAN { get; set; }
     }
 }

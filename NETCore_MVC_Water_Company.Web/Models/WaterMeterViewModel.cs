@@ -10,6 +10,9 @@ namespace NETCore_MVC_Water_Company.Web.Models
 {
     public class WaterMeterViewModel
     {
+        public int Id { get; set; }
+
+
         [Required]
         public string Address { get; set; }
 
@@ -20,6 +23,11 @@ namespace NETCore_MVC_Water_Company.Web.Models
         [Required]
         [Display(Name = "Is meter active?")]
         public bool MeterState { get; set; }
+
+
+        [Required]
+        [Display(Name = "Total consumption")]
+        public float TotalConsumption { get; set; }
 
 
         [Display(Name = "City")]
@@ -35,5 +43,8 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
 
         public string UserId { get; set; }
+
+
+        public DateTime CreationDate { get; set; }
     }
 }

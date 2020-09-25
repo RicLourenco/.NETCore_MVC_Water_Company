@@ -13,7 +13,6 @@ using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
-    //TODO: error messages
     [Authorize(Roles = "Admin,Employee")]
     public class StepsController : Controller
     {

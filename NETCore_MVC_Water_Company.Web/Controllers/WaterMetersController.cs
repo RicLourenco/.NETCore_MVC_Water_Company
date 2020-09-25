@@ -104,7 +104,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 {
                     Address = model.Address,
                     CityId = model.CityId,
-                    //City = city,
                     MeterState = model.MeterState,
                     TotalConsumption = 0,
                     ZipCode = model.ZipCode,
@@ -131,11 +130,25 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             }
 
             var waterMeter = await _context.WaterMeters.FindAsync(id);
+
             if (waterMeter == null)
             {
                 return NotFound();
             }
-            return View(waterMeter);
+
+            var model = new WaterMeterViewModel
+            {
+                Id = waterMeter.Id,
+                Address = waterMeter.Address,
+                TotalConsumption = waterMeter.TotalConsumption,
+                MeterState = waterMeter.MeterState,
+                CityId = waterMeter.CityId,
+                ZipCode = waterMeter.ZipCode,
+                Cities = _cityRepository.GetComboCities(),
+                CreationDate = waterMeter.CreationDate
+            };
+
+            return View(model);
         }
 
         // POST: WaterMeters/Edit/5
@@ -144,9 +157,9 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Address,TotalConsumption,MeterState,ZipCode")] WaterMeter waterMeter)
+        public async Task<IActionResult> Edit(int id, WaterMeterViewModel model)
         {
-            if (id != waterMeter.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -155,12 +168,23 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 try
                 {
+                    var waterMeter = new WaterMeter
+                    {
+                        Id = model.Id,
+                        Address = model.Address,
+                        TotalConsumption = model.TotalConsumption,
+                        MeterState = model.MeterState,
+                        CityId = model.CityId,
+                        ZipCode = model.ZipCode,
+                        CreationDate = model.CreationDate
+                    };
+
                     _context.Update(waterMeter);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WaterMeterExists(waterMeter.Id))
+                    if (!WaterMeterExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -171,7 +195,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(waterMeter);
+            return View(model);
         }
 
         // GET: WaterMeters/Delete/5
