@@ -1,28 +1,22 @@
 ﻿namespace NETCore_MVC_Water_Company.Web
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using System.Text;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
     using NETCore_MVC_Water_Company.Web.Data;
     using NETCore_MVC_Water_Company.Web.Data.Entities;
     using NETCore_MVC_Water_Company.Web.Helpers.Classes;
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
-    using NETCore_MVC_Water_Company.Web.Data.Repositories;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Classes;
-    using Microsoft.IdentityModel.Tokens;
-    using System.Text;
-
+   
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -37,6 +31,8 @@
         {
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = true;
                 cfg.Password.RequiredUniqueChars = 0;
@@ -104,6 +100,7 @@
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

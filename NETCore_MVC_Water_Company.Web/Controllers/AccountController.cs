@@ -16,7 +16,7 @@
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using NETCore_MVC_Water_Company.Web.Models;
 
-
+    //TODO:  not important: cities combobox when creating and editing user
     public class AccountController : Controller
     {
         readonly IUserHelper _userHelper;
@@ -66,8 +66,8 @@
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Incorrent e-mail or password");
-            return View(model);
+            ModelState.AddModelError(string.Empty, "Invalid credentials");
+            return View();
         }
 
 
@@ -90,7 +90,6 @@
             return View();
         }
 
-        //TODO: fix user not needing to confirm e-mail to login
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
@@ -292,7 +291,7 @@
                 model.Address = user.Address;
                 model.PhoneNumber = user.PhoneNumber;
                 model.DocumentNumber = user.DocumentNumber;
-                model.IBAN = user.IBAN;
+                //model.IBAN = user.IBAN;
                 model.TIN = user.TIN;
 
                 var document = await _documentRepository.GetByIdAsync(user.DocumentId);
@@ -342,7 +341,7 @@
                 }
                 else
                 {
-                    this.ModelState.AddModelError(string.Empty, "User no found.");
+                    this.ModelState.AddModelError(string.Empty, "User not found.");
                 }
             }
 
