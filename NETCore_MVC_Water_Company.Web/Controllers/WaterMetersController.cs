@@ -13,6 +13,7 @@ using NETCore_MVC_Water_Company.Web.Data.Entities;
 using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
 using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
 using NETCore_MVC_Water_Company.Web.Models;
+using Syncfusion.EJ2.TreeMap;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
@@ -64,6 +65,17 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 return NotFound();
             }
+
+            List<ChartData> chartData = new List<ChartData>();
+
+            List<Bill> list = waterMeter.Bills.OrderByDescending(b => b.MonthYear).Take(12).ToList();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                chartData.Add(new ChartData { xValue = list[i].MonthYear.ToString("MM-yyyy"), yValue = Convert.ToDouble(list[i].Consumption) });
+            }
+
+            waterMeter.ChartData = chartData;
 
             return View(waterMeter);
         }

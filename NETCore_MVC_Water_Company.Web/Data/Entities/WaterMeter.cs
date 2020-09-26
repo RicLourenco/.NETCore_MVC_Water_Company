@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -54,5 +55,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         public User User { get; set; }
+
+
+        [NotMapped]
+        public List<ChartData> ChartData { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// Consumption for specific month
         /// </summary>
         [Required]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
+        [DisplayFormat(DataFormatString = "{0:F} m³")]
         public float Consumption { get; set; }
 
 

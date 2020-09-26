@@ -55,6 +55,16 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<ejs-chart id="consumptionChart">
+    <e-chart-primaryxaxis valueType="Category">
+    </e-chart-primaryxaxis>
+    <e-series-collection>
+        <e-series name="Consumption" xName="xValue" yName="yValue" dataSource="@Model.ChartData" 
+                  type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
+        </e-series>
+    </e-series-collection>
+</ejs-chart>
+
 <h4>Bills</h4>
 @if (Model.Bills == null | Model.Bills.Count == 0)
 {
