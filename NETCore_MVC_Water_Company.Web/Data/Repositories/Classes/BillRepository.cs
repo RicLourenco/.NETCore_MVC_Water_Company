@@ -33,7 +33,6 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 return;
             }
 
-            //TODO: test further if these fully work (on the create and edit)
             if ((model.MonthYear.Month < waterMeter.CreationDate.Month
                 && model.MonthYear.Year == waterMeter.CreationDate.Year)
                 || model.MonthYear.Year < waterMeter.CreationDate.Year)
@@ -72,7 +71,6 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             }
         }
 
-        //TODO: calculate new price
         public async Task<int> UpdateBillAsync(Bill bill)
         {
             var waterMeter = await _context.WaterMeters.Where(w => w.Bills.Any(b => b.Id == bill.Id)).FirstOrDefaultAsync();

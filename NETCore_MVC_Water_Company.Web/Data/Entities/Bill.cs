@@ -5,6 +5,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 {
     public class Bill : IEntity
     {
+        [Display(Name = "Bill number")]
         public int Id { get; set; }
 
 

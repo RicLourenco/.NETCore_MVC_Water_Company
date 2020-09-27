@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NETCore_MVC_Water_Company.Web.Data.Entities
+namespace NETCore_MVC_Water_Company.Web.Models
 {
-    public class ChartData
+    public class ChartDataViewModel
     {
         public string xValue;
 

@@ -26,6 +26,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         readonly IStepRepository _stepRepository;
         readonly IUserHelper _userHelper;
         readonly ICityRepository _cityRepository;
+        readonly IChartHelper _chartHelper;
 
         public WaterMetersController(
             DataContext context,
@@ -33,7 +34,8 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             IBillRepository billRepository,
             IStepRepository stepRepository,
             ICityRepository cityRepository,
-            IUserHelper userHelper)
+            IUserHelper userHelper,
+            IChartHelper chartHelper)
         {
             _context = context;
             _waterMeterRepository = waterMeterRepository;
@@ -41,6 +43,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _stepRepository = stepRepository;
             _userHelper = userHelper;
             _cityRepository = cityRepository;
+            _chartHelper = chartHelper;
         }
 
         // GET: WaterMeters
@@ -66,16 +69,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 return NotFound();
             }
 
-            List<ChartData> chartData = new List<ChartData>();
-
-            List<Bill> list = waterMeter.Bills.OrderByDescending(b => b.MonthYear).Take(12).ToList();
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                chartData.Add(new ChartData { xValue = list[i].MonthYear.ToString("MM-yyyy"), yValue = Convert.ToDouble(list[i].Consumption) });
-            }
-
-            waterMeter.ChartData = chartData;
+            waterMeter.ChartData = _chartHelper.ProcessChartData(waterMeter);
 
             return View(waterMeter);
         }

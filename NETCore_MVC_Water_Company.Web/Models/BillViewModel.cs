@@ -8,6 +8,7 @@ namespace NETCore_MVC_Water_Company.Web.Models
 {
     public class BillViewModel
     {
+        [Display(Name = "Bill number")]
         public int Id { get; set; }
 
 

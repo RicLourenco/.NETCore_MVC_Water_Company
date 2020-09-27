@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
+using NETCore_MVC_Water_Company.Web.Models;
 using Org.BouncyCastle.Bcpg;
 
 namespace NETCore_MVC_Water_Company.Web.Data.Entities
@@ -58,6 +59,6 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         [NotMapped]
-        public List<ChartData> ChartData { get; set; }
+        public List<ChartDataViewModel> ChartData { get; set; }
     }
 }

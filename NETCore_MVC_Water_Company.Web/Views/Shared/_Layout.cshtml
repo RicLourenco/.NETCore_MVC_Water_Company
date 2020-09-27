@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Ricardo's Water Company</title>
+    <title>Ricardo's Water Company: @ViewData["Title"]</title>
 
     <!-- Syncfusion Essential JS 2 Styles -->
     <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
@@ -12,7 +12,8 @@
     <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />-->
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-cerulean.css" />
         <link rel="stylesheet" href="~/css/site.css" />
 
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -35,11 +36,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">NETCore_MVC_Water_Company.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Ricardo's Water Company</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
 
@@ -48,33 +48,30 @@
                         if (User.IsInRole("Admin"))
                         {
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Controllers<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin area<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
-                                    <li><a asp-area="" asp-controller="Roles" asp-action="Index">Roles</a></li>
                                     <li><a asp-area="" asp-controller="Cities" asp-action="Index">Cities</a></li>
                                     <li><a asp-area="" asp-controller="Documents" asp-action="Index">Documents</a></li>
                                     <li><a asp-area="" asp-controller="Steps" asp-action="Index">Steps</a></li>
-                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">WaterMeters</a></li>
+                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">Water meters & bills</a></li>
                                 </ul>
                             </li>
                         }
                         else if (User.IsInRole("Employee"))
                         {
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Controllers<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee area<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
-                                    <li><a asp-area="" asp-controller="Cities" asp-action="Index">Cities</a></li>
-                                    <li><a asp-area="" asp-controller="Documents" asp-action="Index">Documents</a></li>
                                     <li><a asp-area="" asp-controller="Steps" asp-action="Index">Steps</a></li>
-                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">WaterMeters</a></li>
+                                    <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">Water meters & bills</a></li>
                                 </ul>
                             </li>
                         }
                         else
                         {
-                            <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">Water meters and bills information</a></li>
+                            <li><a asp-area="" asp-controller="WaterMeters" asp-action="Index">Water meters & bills information</a></li>
                         }
                     }
                 </ul>

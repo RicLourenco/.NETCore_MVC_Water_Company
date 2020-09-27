@@ -66,6 +66,7 @@
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
             services.AddScoped<IApiHelper, ApiHelper>();
+            services.AddScoped<IChartHelper, ChartHelper>();
             services.AddScoped<IBillRepository, BillRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IStepRepository, StepRepository>();
