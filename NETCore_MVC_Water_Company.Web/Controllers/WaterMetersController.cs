@@ -28,6 +28,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         readonly ICityRepository _cityRepository;
         readonly IChartHelper _chartHelper;
         readonly IPdfHelper _pdfHelper;
+        readonly IMailHelper _mailHelper;
 
         public WaterMetersController(
             DataContext context,
@@ -37,7 +38,8 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             ICityRepository cityRepository,
             IUserHelper userHelper,
             IChartHelper chartHelper,
-            IPdfHelper pdfHelper)
+            IPdfHelper pdfHelper,
+            IMailHelper mailHelper)
         {
             _context = context;
             _waterMeterRepository = waterMeterRepository;
@@ -47,6 +49,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _cityRepository = cityRepository;
             _chartHelper = chartHelper;
             _pdfHelper = pdfHelper;
+            _mailHelper = mailHelper;
         }
 
         // GET: WaterMeters
@@ -273,6 +276,19 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 model.FinalValue = _stepRepository.CalculateFinalPrice(model.Consumption);
                 await _billRepository.InsertBillAsync(model);
+
+                var bill = new Bill
+                {
+                    Id = model.Id,
+                    Consumption = model.Consumption,
+                    FinalValue = model.FinalValue,
+                    MonthYear = model.MonthYear,
+                    WaterMeterId = model.WaterMeterId
+                };
+
+                var waterMeter = await _context.WaterMeters.Include(w => w.User).Where(w => w.Id == model.WaterMeterId).FirstOrDefaultAsync();
+
+                _mailHelper.SendInvoiceMail(waterMeter.User.NormalizedUserName, model, await _pdfHelper.GenerateBillPDFAsync(bill));
 
                 return RedirectToAction($"Details/{model.WaterMeterId}");
             }

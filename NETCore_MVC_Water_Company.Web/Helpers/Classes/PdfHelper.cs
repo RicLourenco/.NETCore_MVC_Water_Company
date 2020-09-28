@@ -85,8 +85,11 @@ namespace NETCore_MVC_Water_Company.Web.Helpers.Classes
             ms.Position = 0;
 
             //Download the PDF document in the browser.
-            FileStreamResult fileStreamResult = new FileStreamResult(ms, "application/pdf");
-            fileStreamResult.FileDownloadName = $"Invoice_{waterMeter.Id}_{bill.Id}_{DateTime.UtcNow}.pdf";
+            FileStreamResult fileStreamResult = new FileStreamResult(ms, "application/pdf")
+            {
+                FileDownloadName = $"Invoice_{waterMeter.Id}_{bill.Id}_{DateTime.UtcNow}.pdf"
+            };
+
             return fileStreamResult;
         }
 

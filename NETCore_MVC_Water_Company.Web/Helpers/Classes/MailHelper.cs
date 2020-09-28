@@ -1,8 +1,12 @@
 ﻿using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
+using NETCore_MVC_Water_Company.Web.Models;
+using Syncfusion.EJ2.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -46,7 +50,7 @@ namespace NETCore_MVC_Water_Company.Web.Helpers.Classes
             }
         }
 
-        public void SendInvoiceMail(string to, string subject, string body, FileStreamResult invoice)
+        public void SendInvoiceMail(string to, BillViewModel model, FileStreamResult invoice)
         {
             var nameFrom = _configuration["Mail:NameFrom"];
             var from = _configuration["Mail:From"];
@@ -57,16 +61,18 @@ namespace NETCore_MVC_Water_Company.Web.Helpers.Classes
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(nameFrom, from));
             message.To.Add(new MailboxAddress(to, to));
-            message.Subject = subject;
+            message.Subject = "Ricardo's Water Company Invoice";
 
-            var bodybuilder = new BodyBuilder
+            System.Net.Mail.Attachment file = new System.Net.Mail.Attachment(invoice.FileStream, invoice.ContentType);
+
+            var bodyBuilder = new BodyBuilder
             {
-                HtmlBody = body
+                TextBody = $"Invoice n.{model.Id} for the following date: {model.MonthYear}"
             };
 
-            //byte[] attachmentByteArray = 
+            bodyBuilder.Attachments.Add(invoice.FileDownloadName, file.ContentStream);
 
-            //message.Body = bodybuilder.ToMessageBody();
+            message.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new SmtpClient())
             {
