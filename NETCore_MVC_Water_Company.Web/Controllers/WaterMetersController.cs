@@ -27,6 +27,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         readonly IUserHelper _userHelper;
         readonly ICityRepository _cityRepository;
         readonly IChartHelper _chartHelper;
+        readonly IPdfHelper _pdfHelper;
 
         public WaterMetersController(
             DataContext context,
@@ -35,7 +36,8 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             IStepRepository stepRepository,
             ICityRepository cityRepository,
             IUserHelper userHelper,
-            IChartHelper chartHelper)
+            IChartHelper chartHelper,
+            IPdfHelper pdfHelper)
         {
             _context = context;
             _waterMeterRepository = waterMeterRepository;
@@ -44,6 +46,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _userHelper = userHelper;
             _cityRepository = cityRepository;
             _chartHelper = chartHelper;
+            _pdfHelper = pdfHelper;
         }
 
         // GET: WaterMeters
@@ -275,6 +278,23 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> PrintInvoice(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var bill = await _billRepository.GetByIdAsync(id.Value);
+
+            if(bill == null)
+            {
+                return NotFound();
+            }
+
+            return await _pdfHelper.GenerateBillPDFAsync(bill);
         }
 
         [Authorize(Roles = "Admin,Employee")]
