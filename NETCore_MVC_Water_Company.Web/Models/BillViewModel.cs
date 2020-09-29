@@ -25,6 +25,7 @@ namespace NETCore_MVC_Water_Company.Web.Models
         /// </summary>
         [Required]
         [DisplayFormat(DataFormatString = "{0:F} m³")]
+        [Range(0, 9999, ErrorMessage = "Must be a positive number")]
         public float Consumption { get; set; }
 
 
@@ -35,7 +36,8 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
         [Required]
         [Display(Name = "Date")]
-        [DisplayFormat(DataFormatString = "{0:MM//yyyy}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM//yyyy}", ApplyFormatInEditMode = true)]
         public DateTime MonthYear { get; set; }
 
 

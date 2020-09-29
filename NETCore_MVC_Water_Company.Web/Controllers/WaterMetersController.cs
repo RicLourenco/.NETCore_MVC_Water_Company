@@ -275,7 +275,28 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             if (ModelState.IsValid)
             {
                 model.FinalValue = _stepRepository.CalculateFinalPrice(model.Consumption);
-                await _billRepository.InsertBillAsync(model);
+                var result = await _billRepository.InsertBillAsync(model);
+
+                if(result == 0)
+                {
+                    return NotFound();
+                }
+                else if(result == 1)
+                {
+                    ModelState.AddModelError(string.Empty, "The meter is innactive, can't insert new bills");
+                    return View(model);
+                }
+                else if(result == 2)
+                {
+                    
+                    ModelState.AddModelError(string.Empty, "Can't insert bill with month & year lower than water meter's creation");
+                    return View(model);
+                }
+                else if(result == 3)
+                {
+                    ModelState.AddModelError(string.Empty, "Can't insert bill with month & year equal or higher than the current date");
+                    return View(model);
+                }
 
                 var bill = new Bill
                 {
@@ -372,12 +393,14 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 bill.FinalValue = _stepRepository.CalculateFinalPrice(bill.Consumption);
 
-                var waterMeterId = await _billRepository.UpdateBillAsync(bill);
+                var result = await _billRepository.UpdateBillAsync(bill);
 
-                if(waterMeterId != 0)
+                if (result == 0)
                 {
-                    return RedirectToAction($"Details/{waterMeterId}");
+                    return NotFound();
                 }
+
+                return RedirectToAction($"Details/{bill.WaterMeterId}");
             }
 
             return View(bill);

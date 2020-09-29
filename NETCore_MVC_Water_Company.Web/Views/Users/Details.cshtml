@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2 style="color:white;">Details</h2>
 
 <div>
-    <h4>WaterMeter</h4>
+    <h4 style="color:white;">WaterMeter</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,15 +55,15 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Create" asp-controller="WaterMeters" asp-route-id="@Model.Id">Create new water meter</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" class="btn btn-default" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Create" class="btn btn-success" asp-controller="WaterMeters" asp-route-id="@Model.Id">Create new water meter</a> |
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>
 
-<h4>Water meters</h4>
+<h4 style="color:white;">Water meters</h4>
 @if (Model.WaterMeters == null | Model.WaterMeters.Count == 0)
 {
-    <h5>No water meters</h5>
+    <h5 style="color:white;">No water meters</h5>
 }
 else
 {
@@ -79,49 +79,49 @@ else
         <tbody>
             @foreach (var item in Model.WaterMeters.OrderBy(c => c.Id))
             {
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(modelItem => item.City.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City.Name)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(modelItem => item.TotalConsumption)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalConsumption)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(modelItem => item.ZipCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZipCode)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(modelItem => item.MeterState)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MeterState)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td id="@item.Id">
-                    <a asp-action="Details" asp-controller="WaterMeters" asp-route-id="@item.Id" class="btn btn-primary">Meter details</a>
-                    <a asp-action="Edit" asp-controller="WaterMeters" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-        <a asp-action="Delete" asp-controller="WaterMeters" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(modelItem => item.City.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(modelItem => item.TotalConsumption)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalConsumption)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(modelItem => item.ZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(modelItem => item.MeterState)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MeterState)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td id="@item.Id">
+                        <a asp-action="Details" asp-controller="WaterMeters" asp-route-id="@item.Id" class="btn btn-primary">Meter details</a>
+                        <a asp-action="Edit" asp-controller="WaterMeters" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-controller="WaterMeters" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

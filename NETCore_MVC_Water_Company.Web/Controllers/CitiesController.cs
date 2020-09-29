@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+//using AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data;
 using NETCore_MVC_Water_Company.Web.Data.Entities;
 using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
+using NETCore_MVC_Water_Company.Web.Models;
+using Syncfusion.EJ2.Base;
 
 namespace NETCore_MVC_Water_Company.Web.Controllers
 {
-    [Authorize(Roles = "Admin,Employee")]
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         readonly DataContext _context;
@@ -29,8 +34,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         // GET: Cities
         public IActionResult Index()
         {
-            //return View(await _context.Cities.ToListAsync());
-
             return View(_cityRepository.GetCitiesOrdered());
         }
 

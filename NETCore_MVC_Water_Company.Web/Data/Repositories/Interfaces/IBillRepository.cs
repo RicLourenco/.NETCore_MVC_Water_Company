@@ -9,7 +9,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
 {
     public interface IBillRepository : IGenericRepository<Bill>
     {
-        Task InsertBillAsync(BillViewModel model);
+        Task<int> InsertBillAsync(BillViewModel model);
 
         Task<int> UpdateBillAsync(Bill bill);
 

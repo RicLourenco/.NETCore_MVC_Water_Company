@@ -4,9 +4,9 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2 style="color:white;">Delete</h2>
 
-<h3>Are you sure you want to delete this user?</h3>
+<h3 style="color:white;">Are you sure you want to delete this user?</h3>
 <h3 style="color: red; font-weight: bold;">ALL WATER METERS AND BILLS ASSOCIATED WITH THIS USER WILL BE DELETED</h3>
 <div>
     <h4>User info</h4>
@@ -44,7 +44,7 @@
         </dd>
     </dl>
 
-    <h4>Water meters</h4>
+    <h4 style="color:white;">Water meters</h4>
     @if (Model.WaterMeters == null | Model.WaterMeters.Count == 0)
     {
         <h5>No water meters</h5>
@@ -111,8 +111,11 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
     </form>
 </div>
 
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

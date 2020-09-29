@@ -16,7 +16,8 @@
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces;
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Classes;
-   
+    using System;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,6 +33,7 @@
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 30, 0);
                 cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = true;

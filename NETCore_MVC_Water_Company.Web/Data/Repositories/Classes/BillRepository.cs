@@ -19,32 +19,32 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             _context = context;
         }
 
-        public async Task InsertBillAsync(BillViewModel model)
+        public async Task<int> InsertBillAsync(BillViewModel model)
         {
             var waterMeter = await GetWaterMeterWithBillsAsync(model.WaterMeterId);
 
             if(waterMeter == null)
             {
-                return;
+                return 0;
             }
 
             if (!waterMeter.MeterState)
             {
-                return;
+                return 1;
             }
 
             if ((model.MonthYear.Month < waterMeter.CreationDate.Month
                 && model.MonthYear.Year == waterMeter.CreationDate.Year)
                 || model.MonthYear.Year < waterMeter.CreationDate.Year)
             {
-                return;
+                return 2;
             }
 
             if((model.MonthYear.Month >= DateTime.UtcNow.Month
                 && model.MonthYear.Year == DateTime.UtcNow.Year)
                 || model.MonthYear.Year > DateTime.UtcNow.Year)
             {
-                return;
+                return 3;
             }
 
             var bill = await _context.Bills
@@ -69,6 +69,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 _context.WaterMeters.Update(waterMeter);
                 await _context.SaveChangesAsync();
             }
+
+            return -1;
         }
 
         public async Task<int> UpdateBillAsync(Bill bill)
@@ -80,39 +82,23 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 return 0;
             }
 
-            if ((bill.MonthYear.Month < waterMeter.CreationDate.Month
-                && bill.MonthYear.Year == waterMeter.CreationDate.Year)
-                || bill.MonthYear.Year < waterMeter.CreationDate.Year)
-            {
-                return 0;
-            }
-
-            if ((bill.MonthYear.Month >= DateTime.UtcNow.Month
-                && bill.MonthYear.Year == DateTime.UtcNow.Year)
-                || bill.MonthYear.Year > DateTime.UtcNow.Year)
-            {
-                return 0;
-            }
-
-            //added lines
             var oldBill = await GetByIdAsync(bill.Id);
 
             var consumptionDifference = oldBill.Consumption - bill.Consumption;
 
-            if (bill.Consumption > oldBill.Consumption || bill.Consumption < oldBill.Consumption)
+            if (bill.Consumption > oldBill.Consumption
+                || bill.Consumption < oldBill.Consumption)
             {
                 waterMeter.TotalConsumption -= consumptionDifference;
             }
 
             _context.Update(waterMeter);
 
-            //end
-
 
 
             _context.Bills.Update(bill);
             await _context.SaveChangesAsync();
-            return waterMeter.Id;
+            return -1;
         }
 
         public async Task DeleteBillAsync(int id)

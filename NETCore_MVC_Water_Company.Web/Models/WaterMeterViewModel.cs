@@ -27,6 +27,7 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
 
         [Display(Name = "Total consumption")]
+        [DisplayFormat(DataFormatString = "{0:F} m³")]
         public float TotalConsumption { get; set; }
 
 
@@ -39,6 +40,7 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
         [Required]
         [Display(Name = "Zip code")]
+        [RegularExpression(@"^\d{4}(-\d{3})?$", ErrorMessage = "Invalid zip code")]
         public string ZipCode { get; set; }
 
 

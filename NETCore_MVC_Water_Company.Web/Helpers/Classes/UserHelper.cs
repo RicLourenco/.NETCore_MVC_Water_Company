@@ -103,7 +103,7 @@
                 model.Username,
                 model.Password,
                 model.IsPersistent,
-                false);
+                true);
         }
 
         public async Task LogoutAsync()
@@ -126,7 +126,7 @@
             return await _signInManager.CheckPasswordSignInAsync(
                 user,
                 password,
-                false);
+                true);
         }
 
         public IEnumerable<SelectListItem> GetComboRoles()
