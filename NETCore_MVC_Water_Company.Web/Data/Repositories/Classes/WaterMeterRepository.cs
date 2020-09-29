@@ -88,15 +88,5 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                     .Include(w => w.City)
                     .Where(w => w.User == user);
         }
-
-        //TODO:  not important: try using this method instead of doing it in the controller directly
-        public async Task CreateWaterMeter(WaterMeter waterMeter, string userName)
-        {
-            var user = await _userHelper.GetUserByEmailAsync(userName);
-
-            waterMeter.User = user;
-
-            await CreateAsync(waterMeter);
-        }
     }
 }

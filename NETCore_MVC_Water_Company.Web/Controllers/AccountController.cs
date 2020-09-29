@@ -16,7 +16,6 @@
     using NETCore_MVC_Water_Company.Web.Helpers.Interfaces;
     using NETCore_MVC_Water_Company.Web.Models;
 
-    //TODO:  not important: cities combobox when creating and editing user
     public class AccountController : Controller
     {
         readonly IUserHelper _userHelper;

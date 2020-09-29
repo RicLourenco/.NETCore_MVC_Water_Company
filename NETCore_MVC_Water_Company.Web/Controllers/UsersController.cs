@@ -85,8 +85,6 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
 
-        //TODO:  not important: remove user from current role when adding to a different role
-        //TODO:  not im[portant: default selection to the user's current role
         [Authorize(Roles = "Admin")]
         //// POST: Cities/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

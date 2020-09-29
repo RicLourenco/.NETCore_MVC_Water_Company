@@ -6,6 +6,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NETCore_MVC_Water_Company.Web.Data;
@@ -262,7 +263,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 return NotFound();
             }
 
-            var model = new BillViewModel { WaterMeterId = waterMeter.Id };
+            var model = new BillViewModel
+            {
+                WaterMeterId = waterMeter.Id,
+                DatePickerStartDate = new DateTime(waterMeter.CreationDate.Year, waterMeter.CreationDate.Month, 1),
+                DatePickerEndDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month - 1, 1)
+            };
 
             return View(model);
         }
@@ -277,7 +283,8 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 model.FinalValue = _stepRepository.CalculateFinalPrice(model.Consumption);
                 var result = await _billRepository.InsertBillAsync(model);
 
-                if(result == 0)
+
+                if (result == 0)
                 {
                     return NotFound();
                 }
@@ -298,6 +305,8 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                     return View(model);
                 }
 
+                
+
                 var bill = new Bill
                 {
                     Id = model.Id,
@@ -314,6 +323,10 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 return RedirectToAction($"Details/{model.WaterMeterId}");
             }
 
+            var waterMeter1 = await _waterMeterRepository.GetByIdAsync(model.WaterMeterId);
+
+            model.DatePickerStartDate = new DateTime(waterMeter1.CreationDate.Year, waterMeter1.CreationDate.Month, 1);
+            model.DatePickerEndDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month - 1, 1);
             return View(model);
         }
 

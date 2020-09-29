@@ -14,7 +14,5 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Interfaces
         Task DeleteWaterMeterWithBills(WaterMeter waterMeter);
 
         Task<IQueryable<WaterMeter>> GetWaterMetersAsync(string userName);
-
-        Task CreateWaterMeter(WaterMeter waterMeter, string userName);
     }
 }

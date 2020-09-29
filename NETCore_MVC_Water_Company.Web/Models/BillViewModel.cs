@@ -42,5 +42,11 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
 
         public int WaterMeterId { get; set; }
+
+
+        public DateTime DatePickerStartDate { get; set; }
+
+
+        public DateTime DatePickerEndDate { get; set; }
     }
 }
