@@ -69,6 +69,12 @@
                 .WithOne()
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelbuilder.Entity<Document>()
+                .HasMany(d => d.User)
+                .WithOne(u => u.Document)
+                .HasForeignKey(u => u.DocumentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelbuilder);
         }
     }

@@ -1,9 +1,11 @@
 ﻿namespace NETCore_MVC_Water_Company.Web.Helpers.Interfaces
 {
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using NETCore_MVC_Water_Company.Web.Data.Entities;
     using NETCore_MVC_Water_Company.Web.Models;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IUserHelper
@@ -43,5 +45,7 @@
         Task<string> GeneratePasswordResetTokenAsync(User user);
 
         Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
+
+        IEnumerable<SelectListItem> GetComboRoles();
     }
 }

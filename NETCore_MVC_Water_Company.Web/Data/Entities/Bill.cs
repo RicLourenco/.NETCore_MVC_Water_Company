@@ -22,6 +22,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// </summary>
         [Required]
         [DisplayFormat(DataFormatString = "{0:F} m³")]
+
         public float Consumption { get; set; }
 
 

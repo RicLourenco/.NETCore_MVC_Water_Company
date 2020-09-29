@@ -30,8 +30,8 @@ namespace NETCore_MVC_Water_Company.Web.Models
         public string PhoneNumber { get; set; }
 
 
-        [Display(Name = "City")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a city")]
+        [Display(Name = "Identification document")]
+        [Range(1, int.MaxValue, ErrorMessage = "You must select a document")]
         public int DocumentId { get; set; }
 
 
@@ -44,9 +44,5 @@ namespace NETCore_MVC_Water_Company.Web.Models
         [Required]
         [Display(Name = "Tax identitfication number")]
         public string TIN { get; set; }
-
-
-        [Display(Name = "International bank account number")]
-        public string IBAN { get; set; }
     }
 }

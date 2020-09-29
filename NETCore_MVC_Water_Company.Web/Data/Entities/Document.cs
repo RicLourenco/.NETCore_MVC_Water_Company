@@ -11,5 +11,8 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
 
         public string Name { get; set; }
+
+
+        public IEnumerable<User> User { get; set; }
     }
 }

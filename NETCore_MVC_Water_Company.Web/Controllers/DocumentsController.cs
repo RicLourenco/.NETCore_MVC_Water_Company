@@ -141,10 +141,17 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var document = await _context.Documents.FindAsync(id);
-            _context.Documents.Remove(document);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var document = await _context.Documents.FindAsync(id);
+                _context.Documents.Remove(document);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View("DeleteError");
+            }
         }
 
         private bool DocumentExists(int id)

@@ -46,7 +46,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
 
         [Required]
         [Display(Name = "Zip code")]
+        [RegularExpression(@"^\d{4}(-\d{3})?$", ErrorMessage = "Wrong ZIP Code")]
         public string ZipCode { get; set; }
+
 
         [Display(Name = "Registration date")]
         public DateTime CreationDate { get; set; }

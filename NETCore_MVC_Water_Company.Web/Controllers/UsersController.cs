@@ -32,11 +32,13 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _documentRepository = documentRepository;
         }
 
+
         // GET: Cities
         public IActionResult Index()
         {
             return View(_context.Users.ToList());
         }
+
 
         // GET: Cities/Details/5
         public async Task<IActionResult> Details(string id)
@@ -56,7 +58,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "Admin,Employee")]
+        [Authorize(Roles = "Admin")]
         // GET: Cities/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
@@ -72,76 +74,52 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                 return NotFound();
             }
 
-            var model = new ChangeUserViewModel
+            var model = new ChangeUserRoleViewModel
             {
-                Id = user.Id,
-                FirstNames = user.FirstNames,
-                LastNames = user.LastNames,
-                Address = user.Address,
-                PhoneNumber = user.PhoneNumber,
-                DocumentId = user.DocumentId,
-                DocumentNumber = user.DocumentNumber,
-                Documents = _documentRepository.GetComboDocuments(),
-                TIN = user.TIN,
+                UserId = user.Id,
+                Roles = _userHelper.GetComboRoles(),
                 IBAN = user.IBAN
             };
 
             return View(model);
         }
 
-        //TODO: fix stamp error when updating
-        [Authorize(Roles = "Admin,Employee")]
+
+        //TODO:  not important: remove user from current role when adding to a different role
+        //TODO:  not im[portant: default selection to the user's current role
+        [Authorize(Roles = "Admin")]
         //// POST: Cities/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, ChangeUserViewModel model)
+        public async Task<IActionResult> Edit(ChangeUserRoleViewModel model)
         {
-            if (id != model.Id)
+
+            if (model == null )
             {
                 return NotFound();
             }
 
+            var user = await _userHelper.GetUserByIdAsync(model.UserId);
+
+            user.IBAN = model.IBAN;
+
             if (ModelState.IsValid)
             {
-                try
+                await _userHelper.UpdateUserAsync(user);
+
+                if (!await _userHelper.IsUserInRoleAsync(user, model.RoleName))
                 {
-                    var user = new User
-                    {
-                        FirstNames = model.FirstNames,
-                        LastNames = model.LastNames,
-                        Address = model.Address,
-                        PhoneNumber = model.PhoneNumber,
-                        DocumentId = model.DocumentId,
-                        DocumentNumber = model.DocumentNumber,
-                        TIN = model.TIN,
-                        IBAN = model.IBAN
-                    };
-
-                    await _userHelper.UpdateUserAsync(user);
-
-                    //_context.Update(user);
-                    //await _context.SaveChangesAsync();
+                    await _userHelper.AddUserToRoleAsync(user, model.RoleName);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    var userExists = await _userHelper.GetUserByIdAsync(model.Id);
 
-                    if (model == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Cities/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
@@ -160,6 +138,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(user);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Cities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

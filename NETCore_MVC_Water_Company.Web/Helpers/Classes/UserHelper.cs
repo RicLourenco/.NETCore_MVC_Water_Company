@@ -8,6 +8,8 @@
     using System.Linq;
     using System.Collections;
     using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class UserHelper : IUserHelper
     {
@@ -127,6 +129,16 @@
                 false);
         }
 
+        public IEnumerable<SelectListItem> GetComboRoles()
+        {
+            var list = _roleManager.Roles.ToList().Select(
+                c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Name
+                }).ToList();
 
+            return list;
+        }
     }
 }

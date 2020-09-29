@@ -1,4 +1,4 @@
-﻿@model NETCore_MVC_Water_Company.Web.Models.ChangeUserViewModel
+﻿@model NETCore_MVC_Water_Company.Web.Models.ChangeUserRoleViewModel
 
 @{
     ViewData["Title"] = "Edit user";
@@ -10,58 +10,19 @@
     <div class="col-md-4 offset-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="UserId" />
 
             <div class="form-group">
-                <label asp-for="FirstNames">First Name</label>
-                <input asp-for="FirstNames" class="form-control" />
-                <span asp-validation-for="FirstNames" class="text-warning"></span>
+                <label asp-for="IBAN">International bank account number</label>
+                <input asp-for="IBAN" class="form-control" />
+                <span asp-validation-for="IBAN" class="text-warning"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="LastNames">Last Name</label>
-                <input asp-for="LastNames" class="form-control" />
-                <span asp-validation-for="LastNames" class="text-warning"></span>
+                <label asp-for="RoleName" class="control-label">Select the user's role</label>
+                <select asp-for="RoleName" asp-items="Model.Roles" class="form-control"></select>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Address">Address</label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-warning"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="PhoneNumber">Phone Number</label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-warning"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DocumentId" class="control-label"></label>
-                <select asp-for="DocumentId" asp-items="Model.Documents" class="form-control"></select>
-                <span asp-validation-for="DocumentId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DocumentNumber">Document number</label>
-                <input asp-for="DocumentNumber" class="form-control" />
-                <span asp-validation-for="DocumentNumber" class="text-warning"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TIN">Tax identification number</label>
-                <input asp-for="TIN" class="form-control" />
-                <span asp-validation-for="TIN" class="text-warning"></span>
-            </div>
-
-            @if (User.IsInRole("Admin"))
-            {
-                <div class="form-group">
-                    <label asp-for="IBAN">International bank account number</label>
-                    <input asp-for="IBAN" class="form-control" />
-                    <span asp-validation-for="IBAN" class="text-warning"></span>
-                </div>
-            }
 
             <div class="form-group">
                 <input type="submit" value="Edit" class="btn btn-primary" />
@@ -72,6 +33,10 @@
             <div class="text-success">@ViewBag.UserMessage</div>
         </form>
     </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -291,7 +291,6 @@
                 model.Address = user.Address;
                 model.PhoneNumber = user.PhoneNumber;
                 model.DocumentNumber = user.DocumentNumber;
-                //model.IBAN = user.IBAN;
                 model.TIN = user.TIN;
 
                 var document = await _documentRepository.GetByIdAsync(user.DocumentId);
@@ -326,10 +325,10 @@
                     user.DocumentId = model.DocumentId;
                     user.Document = document;
                     user.DocumentNumber = model.DocumentNumber;
-                    user.IBAN = model.IBAN;
                     user.TIN = model.TIN;
 
                     var respose = await _userHelper.UpdateUserAsync(user);
+
                     if (respose.Succeeded)
                     {
                         this.ViewBag.UserMessage = "User updated!";
