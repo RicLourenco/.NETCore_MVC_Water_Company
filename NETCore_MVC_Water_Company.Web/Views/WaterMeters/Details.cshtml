@@ -51,7 +51,12 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("Admin,Employee"))
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+        <a asp-action="CreateBill" asp-route-id="@Model.Id" class="btn btn-default">Create new bill</a>
+    }
+    @if (User.IsInRole("Employee"))
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
         <a asp-action="CreateBill" asp-route-id="@Model.Id" class="btn btn-default">Create new bill</a>
@@ -121,13 +126,22 @@ else
                                 <td>
                                     @Html.DisplayFor(modelItem => item.MonthYear)
                                 </td>
-                                @if (User.IsInRole("Admin,Employee"))
+                                
+                                @if (User.IsInRole("Admin"))
                                 {
-                                    <td id="@item.Id">
-                                        <a asp-action="EditBill" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                                        <a asp-action="DeleteBill" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
-                                        <a asp-action="PrintInvoice" asp-route-id="@item.Id" class="btn btn-default">Print Invoice</a>
-                                    </td>
+                            <td id="@item.Id">
+                                <a asp-action="EditBill" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                <a asp-action="DeleteBill" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                                <a asp-action="PrintInvoice" asp-route-id="@item.Id" class="btn btn-default">Print Invoice</a>
+                            </td>
+                                }
+                                @if (User.IsInRole("Employee"))
+                                {
+                            <td id="@item.Id">
+                                <a asp-action="EditBill" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                <a asp-action="DeleteBill" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                                <a asp-action="PrintInvoice" asp-route-id="@item.Id" class="btn btn-default">Print Invoice</a>
+                            </td>
                                 }
                             </tr>
                             }
