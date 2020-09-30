@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "NETCoreMVCWaterCompanyWeb20200720185014",
+      "defaultValue": "NETCoreMVCWaterCompanyWeb",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }

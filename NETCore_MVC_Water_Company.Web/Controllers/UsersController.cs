@@ -120,12 +120,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 await _userHelper.UpdateUserAsync(user);
 
-                await _userHelper.ChangeUserRoleAsync(user, model.RoleName);
-
-                //if (!await _userHelper.IsUserInRoleAsync(user, model.RoleName))
-                //{
-                //    await _userHelper.AddUserToRoleAsync(user, model.RoleName);
-                //}
+                await _userHelper.ChangeUserRoleAsync(user, User.Identity.Name, model.RoleName);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -166,8 +161,7 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            await _userHelper.RemoveUserAsync(user, User.Identity.Name);
             return RedirectToAction(nameof(Index));
         }
     }

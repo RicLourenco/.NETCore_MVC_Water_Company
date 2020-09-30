@@ -36,7 +36,7 @@
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<IdentityResult> RemoveUserAsync(User user);
+        Task<IdentityResult> RemoveUserAsync(User user, string userName);
 
         /// <summary>
         /// Login logic
@@ -156,7 +156,7 @@
         /// <param name="user"></param>
         /// <param name="roleName"></param>
         /// <returns></returns>
-        Task ChangeUserRoleAsync(User user, string roleName);
+        Task ChangeUserRoleAsync(User user, string userName, string roleName);
 
         /// <summary>
         /// Check if user is in all roles

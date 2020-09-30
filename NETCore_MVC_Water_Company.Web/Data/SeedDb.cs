@@ -70,7 +70,7 @@
                 user = new User
                 {
                     FirstNames = "Ricardo Filipe",
-                    LastNames = "Lourenço Pinto",
+                    LastNames = "Pinto Lourenço",
                     BirthDate = Convert.ToDateTime(DateTime.ParseExact("14-05-1995", "dd-MM-yyyy", CultureInfo.InvariantCulture)),
                     Email = "ricardo.pinto.lourenco@formandos.cinel.pt",
                     UserName = "ricardo.pinto.lourenco@formandos.cinel.pt",

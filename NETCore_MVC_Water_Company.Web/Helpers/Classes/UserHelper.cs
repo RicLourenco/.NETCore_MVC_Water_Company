@@ -36,9 +36,17 @@
             return await _userManager.Users.ToListAsync();
         }
 
-        public async Task<IdentityResult> RemoveUserAsync(User user)
+        public async Task<IdentityResult> RemoveUserAsync(User user, string userName)
         {
-            return await _userManager.DeleteAsync(user);
+            if(user.UserName != "ricardo.pinto.lourenco@formandos.cinel.pt")
+            {
+                if(user.UserName != userName)
+                {
+                    return await _userManager.DeleteAsync(user);
+                }
+                
+            }
+            return null;
         }
 
         public async Task AddUserToRoleAsync(User user, string roleName)
@@ -143,13 +151,21 @@
             return list;
         }
 
-        public async Task ChangeUserRoleAsync(User user, string roleName)
+        public async Task ChangeUserRoleAsync(User user, string userName,  string roleName)
         {
-            await RemoveUserFromRoleAsync(user, "Admin");
-            await RemoveUserFromRoleAsync(user, "Employee");
-            await RemoveUserFromRoleAsync(user, "Client");
+            
 
-            await AddUserToRoleAsync(user, roleName);
+            if (user.UserName != "ricardo.pinto.lourenco@formandos.cinel.pt")
+            {
+                if(user.UserName != userName)
+                {
+                    await RemoveUserFromRoleAsync(user, "Admin");
+                    await RemoveUserFromRoleAsync(user, "Employee");
+                    await RemoveUserFromRoleAsync(user, "Client");
+
+                    await AddUserToRoleAsync(user, roleName);
+                }
+            }
         }
 
         public async Task<string> CheckUserRoleAsync(User user)

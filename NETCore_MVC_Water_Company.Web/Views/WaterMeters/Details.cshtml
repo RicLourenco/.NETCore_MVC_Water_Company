@@ -51,8 +51,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
-    <a asp-action="CreateBill" asp-route-id="@Model.Id" class="btn btn-default">Create new bill</a>
+    @if (User.IsInRole("Admin,Employee"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+        <a asp-action="CreateBill" asp-route-id="@Model.Id" class="btn btn-default">Create new bill</a>
+    }
 
     <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>
@@ -92,39 +95,41 @@ else
                                 <th>Consumption</th>
                                 <th>Price</th>
                                 <th>Date</th>
-
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.Bills.OrderBy(c => c.MonthYear))
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PaymentState)
-                                    </td>
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Consumption)
-                                    </td>
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FinalValue)
-                                    </td>
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.MonthYear)
-                                    </td>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentState)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Consumption)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FinalValue)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MonthYear)
+                                </td>
+                                @if (User.IsInRole("Admin,Employee"))
+                                {
                                     <td id="@item.Id">
                                         <a asp-action="EditBill" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
                                         <a asp-action="DeleteBill" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
                                         <a asp-action="PrintInvoice" asp-route-id="@item.Id" class="btn btn-default">Print Invoice</a>
                                     </td>
-                                </tr>
+                                }
+                            </tr>
                             }
                         </tbody>
                     </table>
