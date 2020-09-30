@@ -33,14 +33,21 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
 
-        // GET: Cities
-        public IActionResult Index()
+        /// <summary>
+        /// Users index get action
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Users.ToList());
+            return View(await _userHelper.GetAllUsersWithRolesAsync());
         }
 
 
-        // GET: Cities/Details/5
+        /// <summary>
+        /// Users details get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -58,8 +65,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(user);
         }
 
+        /// <summary>
+        /// Users edit get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        // GET: Cities/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -85,10 +96,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         }
 
 
+        /// <summary>
+        /// Users edit post action
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        //// POST: Cities/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ChangeUserRoleViewModel model)
@@ -119,8 +132,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Users delete get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        // GET: Cities/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -138,8 +155,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(user);
         }
 
+        /// <summary>
+        /// Users delete post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        // POST: Cities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

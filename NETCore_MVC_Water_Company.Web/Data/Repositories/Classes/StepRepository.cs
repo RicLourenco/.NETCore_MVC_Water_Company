@@ -18,6 +18,10 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             _context = context;
         }
 
+        /// <summary>
+        /// Get steps ordered by minimum consumption
+        /// </summary>
+        /// <returns></returns>
         public IQueryable GetStepsOrdered()
         {
             return  _context.Steps
@@ -25,6 +29,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
 
         }
 
+        /// <summary>
+        /// Insert new step
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
         public async Task InsertStepAsync(Step step)
         {
             var result = await _context.Steps
@@ -37,6 +46,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             }
         }
 
+        /// <summary>
+        /// Delete step
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
         public async Task DeleteStepAsync(Step step)
         {
             if(step.MinimumConsumption != 0)
@@ -45,6 +59,12 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             }
         }
 
+
+        /// <summary>
+        /// Update step
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
         public async Task UpdateStepAsync(Step step)
         {
             var result = await _context.Steps
@@ -68,6 +88,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             }
         }
 
+        /// <summary>
+        /// Calculate final price for bills
+        /// </summary>
+        /// <param name="consumption"></param>
+        /// <returns></returns>
         public float CalculateFinalPrice(float consumption)
         {
             var steps = _context.Steps.OrderByDescending(s => s.MinimumConsumption).ToList();

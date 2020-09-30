@@ -12,6 +12,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public int Id { get; set; }
 
 
+        /// <summary>
+        /// City name
+        /// </summary>
         [Required(ErrorMessage = "{0} is required")]
         [JsonProperty("name")]
         [Display(Name = "City name")]

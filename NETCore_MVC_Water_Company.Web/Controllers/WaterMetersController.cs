@@ -53,14 +53,21 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _mailHelper = mailHelper;
         }
 
-        // GET: WaterMeters
+        /// <summary>
+        /// Water meters index get action
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var model = await _waterMeterRepository.GetWaterMetersAsync(User.Identity.Name);
             return View(model);
         }
 
-        // GET: WaterMeters/Details/5
+        /// <summary>
+        /// Water meters details with bills included get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -81,8 +88,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(waterMeter);
         }
 
+        /// <summary>
+        /// Water meters creation get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
-        // GET: WaterMeters/Create
         public IActionResult Create(string id)
         {
             if(string.IsNullOrWhiteSpace(id))
@@ -99,9 +110,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(model);
         }
 
-        // POST: WaterMeters/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Water meters create post action
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -133,7 +146,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
 
 
 
-        // GET: WaterMeters/Edit/5
+        /// <summary>
+        /// Water meters edit get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -164,9 +181,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(model);
         }
 
-        // POST: WaterMeters/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Water meters edit post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -195,23 +215,20 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
                     _context.Update(waterMeter);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch
                 {
-                    if (!WaterMeterExists(model.MeterId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
-        // GET: WaterMeters/Delete/5
+        /// <summary>
+        /// Water meters delete get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -230,7 +247,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(waterMeter);
         }
 
-        // POST: WaterMeters/Delete/5
+        /// <summary>
+        /// Water meters delete post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -242,12 +263,22 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Check if water meter exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool WaterMeterExists(int id)
         {
             return _context.WaterMeters.Any(e => e.Id == id);
         }
 
 
+        /// <summary>
+        /// Bill create get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateBill(int? id)
         {
@@ -273,6 +304,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Bill create post action
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
@@ -330,6 +366,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(model);
         }
 
+
+        /// <summary>
+        /// Invoice print action 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> PrintInvoice(int? id)
         {
             if(id == null)
@@ -347,6 +389,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return await _pdfHelper.GenerateBillPDFAsync(bill);
         }
 
+
+        /// <summary>
+        /// Bill delete get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> DeleteBill(int? id)
         {
@@ -366,6 +414,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(bill);
         }
 
+        /// <summary>
+        /// Bill delete post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost, ActionName("DeleteBill")]
         [ValidateAntiForgeryToken]
@@ -379,6 +432,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Bill edit get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> EditBill(int? id)
         {
@@ -397,6 +455,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(bill);
         }
 
+        /// <summary>
+        /// Bill edit post action
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -419,6 +482,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(bill);
         }
 
+        /// <summary>
+        /// Check if bill exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool BillExists(int id)
         {
             return _context.Bills.Any(e => e.Id == id);

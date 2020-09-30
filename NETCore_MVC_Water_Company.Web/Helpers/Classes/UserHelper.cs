@@ -10,6 +10,8 @@
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using System.Runtime.InteropServices;
+    using NETCore_MVC_Water_Company.Web.Data;
 
     public class UserHelper : IUserHelper
     {
@@ -148,6 +150,38 @@
             await RemoveUserFromRoleAsync(user, "Client");
 
             await AddUserToRoleAsync(user, roleName);
+        }
+
+        public async Task<string> CheckUserRoleAsync(User user)
+        {
+            if(await IsUserInRoleAsync(user, "Admin"))
+            {
+                return "Admin";
+            }
+            
+            if (await IsUserInRoleAsync(user, "Employee"))
+            {
+                return "Employee";
+            }
+
+            if (await IsUserInRoleAsync(user, "Client"))
+            {
+                return "Client";
+            }
+
+            return "Error";
+        }
+
+        public async Task<List<User>> GetAllUsersWithRolesAsync()
+        {
+            var result = await _userManager.Users.ToListAsync();
+
+            foreach(var user in result)
+            {
+                user.RoleName = await CheckUserRoleAsync(user);
+            }
+
+            return result;
         }
     }
 }

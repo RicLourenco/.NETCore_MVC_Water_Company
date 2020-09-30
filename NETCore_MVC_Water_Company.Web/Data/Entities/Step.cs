@@ -11,6 +11,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public int Id { get; set; }
 
 
+        /// <summary>
+        /// Minimum consumption to apply in price calculation
+        /// </summary>
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Minimum consumption")]
         [DisplayFormat(DataFormatString = "{0:F} m³")]
@@ -18,6 +21,9 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public float MinimumConsumption { get; set; }
 
 
+        /// <summary>
+        /// Step's price
+        /// </summary>
         [Required(ErrorMessage = "{0} is required")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         [Range(0, 9999, ErrorMessage = "Must be a positive number")]

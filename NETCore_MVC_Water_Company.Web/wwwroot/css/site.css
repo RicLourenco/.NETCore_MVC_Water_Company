@@ -19,7 +19,7 @@ body {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+.carousel-inner .item img[src$=".jpg"] {
     width: 100%;
 }
 
@@ -76,4 +76,10 @@ body {
 
 .contant_box_404 {
     margin-top: -50px;
+}
+
+#myCarousel {
+    position: absolute;
+    left: 0;
+    right: 0;
 }

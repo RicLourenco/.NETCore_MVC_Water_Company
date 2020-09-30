@@ -85,37 +85,37 @@ else
                 </div>
                 <div class="panel-body">
                     <table class="table table-hover table-responsive table-striped" id="MyTable">
+                        <thead>
+                            <tr>
+                                <th>Bill number</th>
+                                <th>Is bil payed?</th>
+                                <th>Consumption</th>
+                                <th>Price</th>
+                                <th>Date</th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach (var item in Model.Bills.OrderBy(c => c.MonthYear))
                             {
                                 <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(modelItem => item.Id):
-                                    </th>
-                                    <th>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </th>
                                     <td>
-                                        @Html.DisplayNameFor(modelItem => item.PaymentState):
+                                        @Html.DisplayFor(modelItem => item.Id)
                                     </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PaymentState)
                                     </td>
-                                    <td>
-                                        @Html.DisplayNameFor(modelItem => item.Consumption):
-                                    </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Consumption)
                                     </td>
-                                    <td>
-                                        @Html.DisplayNameFor(modelItem => item.FinalValue):
-                                    </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.FinalValue)
                                     </td>
-                                    <td>
-                                        @Html.DisplayNameFor(modelItem => item.MonthYear):
-                                    </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.MonthYear)
                                     </td>

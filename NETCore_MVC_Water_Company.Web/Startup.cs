@@ -62,7 +62,7 @@
 
             services.AddDbContext<DataContext>(cfg =>
             {
-                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                cfg.UseSqlServer(Configuration.GetConnectionString("SomeeConnection"));
             });
 
             services.AddTransient<SeedDb>();

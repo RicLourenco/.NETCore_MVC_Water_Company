@@ -21,13 +21,20 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _context = context;
         }
 
-        // GET: Documents
+        /// <summary>
+        /// Documents index get action
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(await _context.Documents.ToListAsync());
         }
 
-        // GET: Documents/Details/5
+        /// <summary>
+        /// Documents index get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,15 +52,20 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(document);
         }
 
-        // GET: Documents/Create
+        /// <summary>
+        /// Documents create get action
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Documents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Documents create post action
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Document document)
@@ -67,7 +79,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(document);
         }
 
-        // GET: Documents/Edit/5
+        /// <summary>
+        /// Documents edit get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,9 +99,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(document);
         }
 
-        // POST: Documents/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Documents edit post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="document"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Document document)
@@ -118,7 +137,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(document);
         }
 
-        // GET: Documents/Delete/5
+        /// <summary>
+        /// Documents delete get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,7 +159,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(document);
         }
 
-        // POST: Documents/Delete/5
+        /// <summary>
+        /// Documents delete post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -154,6 +181,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Check if document exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool DocumentExists(int id)
         {
             return _context.Documents.Any(e => e.Id == id);

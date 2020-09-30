@@ -19,6 +19,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             _context = context;
         }
 
+        /// <summary>
+        /// Insert new bill
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<int> InsertBillAsync(BillViewModel model)
         {
             var waterMeter = await GetWaterMeterWithBillsAsync(model.WaterMeterId);
@@ -73,6 +78,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             return -1;
         }
 
+        /// <summary>
+        /// Update bill
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         public async Task<int> UpdateBillAsync(Bill bill)
         {
             var waterMeter = await _context.WaterMeters.Where(w => w.Bills.Any(b => b.Id == bill.Id)).FirstOrDefaultAsync();
@@ -101,6 +111,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             return -1;
         }
 
+        /// <summary>
+        /// Delete bill
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeleteBillAsync(int id)
         {
             var bill = await GetByIdAsync(id);
@@ -125,6 +140,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
         }
 
 
+        /// <summary>
+        /// Get water meter with bill included
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<WaterMeter> GetWaterMeterWithBillsAsync(int id)
         {
             return await _context.WaterMeters

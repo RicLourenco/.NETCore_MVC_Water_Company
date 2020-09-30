@@ -35,7 +35,10 @@
             _documentRepository = documentRepository;
         }
 
-
+        /// <summary>
+        /// Login page get
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -47,6 +50,11 @@
         }
 
 
+        /// <summary>
+        /// Login page post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -69,14 +77,20 @@
             return View();
         }
 
-
+        /// <summary>
+        /// Logout page get
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Logout()
         {
             await _userHelper.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
 
-
+        /// <summary>
+        /// Register page get
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Register()
         {
             var model = new RegisterNewUserViewModel
@@ -89,6 +103,11 @@
             return View();
         }
 
+        /// <summary>
+        /// Register page post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
@@ -146,7 +165,12 @@
             return View(model);
         }
 
-
+        /// <summary>
+        /// Confirm e-mail page get
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
@@ -172,6 +196,11 @@
         }
 
 
+        /// <summary>
+        /// Create token action
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
         {
@@ -215,12 +244,21 @@
         }
 
 
+        /// <summary>
+        /// Recover pawword page get
+        /// </summary>
+        /// <returns></returns>
         public IActionResult RecoverPassword()
         {
             return this.View();
         }
 
 
+        /// <summary>
+        /// Recover password page post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
         {
@@ -252,12 +290,22 @@
         }
 
 
+        /// <summary>
+        /// Reset password page get
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public IActionResult ResetPassword(string token)
         {
             return View();
         }
 
 
+        /// <summary>
+        /// Reset password page post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -280,6 +328,10 @@
         }
 
 
+        /// <summary>
+        /// Change user page get
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> ChangeUser()
         {
             var user = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
@@ -309,6 +361,11 @@
         }
 
 
+        /// <summary>
+        /// Change user page post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
         {
@@ -353,12 +410,21 @@
         }
 
 
+        /// <summary>
+        /// Change password page get
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ChangePassword()
         {
             return View();
         }
 
 
+        /// <summary>
+        /// Change password page post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -387,6 +453,10 @@
         }
 
 
+        /// <summary>
+        /// Not authorized page get
+        /// </summary>
+        /// <returns></returns>
         public IActionResult NotAuthorized()
         {
             return View();

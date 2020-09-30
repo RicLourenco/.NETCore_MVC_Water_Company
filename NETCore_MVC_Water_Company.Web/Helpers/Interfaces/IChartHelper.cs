@@ -9,6 +9,11 @@ namespace NETCore_MVC_Water_Company.Web.Helpers.Interfaces
 {
     public interface IChartHelper
     {
+        /// <summary>
+        /// Process x and y position for each element to display in the chart
+        /// </summary>
+        /// <param name="waterMeter"></param>
+        /// <returns></returns>
         List<ChartDataViewModel> ProcessChartData(WaterMeter waterMeter);
     }
 }

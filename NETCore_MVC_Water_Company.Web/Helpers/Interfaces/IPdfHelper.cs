@@ -12,12 +12,36 @@ namespace NETCore_MVC_Water_Company.Web.Helpers.Interfaces
 {
     public interface IPdfHelper
     {
+        /// <summary>
+        /// Generate invoice pdf
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         Task<FileStreamResult> GenerateBillPDFAsync(Bill bill);
 
+        /// <summary>
+        /// Render body content
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="yPosition"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         PdfLayoutResult BodyContent(string text, float yPosition, PdfPage page);
 
+        /// <summary>
+        /// Render header content
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="yPosition"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         PdfLayoutResult HeaderPoints(string text, float yPosition, PdfPage page);
 
+        /// <summary>
+        /// Get water meter with user info for displaying in the pdf header
+        /// </summary>
+        /// <param name="waterMeterId"></param>
+        /// <returns></returns>
         Task<WaterMeter> GetWaterMeterWithUserAsync(int waterMeterId);
     }
 }

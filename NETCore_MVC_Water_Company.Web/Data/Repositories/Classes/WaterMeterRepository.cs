@@ -28,6 +28,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             _userHelper = userHelper;
         }
 
+        /// <summary>
+        /// Delete water meter and bills associated
+        /// </summary>
+        /// <param name="waterMeter"></param>
+        /// <returns></returns>
         public async Task DeleteWaterMeterWithBills(WaterMeter waterMeter)
         {
             foreach(var bill in waterMeter.Bills)
@@ -38,6 +43,12 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             await DeleteAsync(waterMeter);
         }
 
+        /// <summary>
+        /// Get water meter with bills associated
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public async Task<WaterMeter> GetWaterMeterWithBillsAsync(int id, string userName)
         {
             var user = await _userHelper.GetUserByEmailAsync(userName);
@@ -64,6 +75,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
                 .FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// Get all water meters associated with specific user if it's a client
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public async Task<IQueryable<WaterMeter>> GetWaterMetersAsync(string userName)
         {
             var user = await _userHelper.GetUserByEmailAsync(userName);

@@ -8,6 +8,10 @@ namespace NETCore_MVC_Water_Company.Web.Helpers.Interfaces
 {
     public interface IApiHelper
     {
+        /// <summary>
+        /// Fetch cities from a JSON api
+        /// </summary>
+        /// <returns></returns>
         Task<IEnumerable<City>> GetCitiesFromApiAsync(); 
     }
 }

@@ -27,13 +27,20 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             _stepRepository = stepRepository;
         }
 
-        // GET: Steps
+        /// <summary>
+        /// Steps index get action
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View(_stepRepository.GetStepsOrdered());
         }
 
-        // GET: Steps/Details/5
+        /// <summary>
+        /// Steps details get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,16 +58,21 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        // GET: Steps/Create
+        /// <summary>
+        /// Steps details get action
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Steps/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Steps create post action
+        /// </summary>
+        /// <param name="step"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Employee")]
@@ -74,7 +86,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        // GET: Steps/Edit/5
+        /// <summary>
+        /// Steps edit get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,9 +107,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        // POST: Steps/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Steps edit post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="step"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Employee")]
@@ -126,7 +145,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        // GET: Steps/Delete/5
+        /// <summary>
+        /// Steps delete get action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -145,7 +168,11 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             return View(step);
         }
 
-        // POST: Steps/Delete/5
+        /// <summary>
+        /// Steps delete post action
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Employee")]

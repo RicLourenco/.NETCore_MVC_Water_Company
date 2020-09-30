@@ -18,6 +18,10 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             _context = context;
         }
 
+        /// <summary>
+        /// Get documents combobox
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<SelectListItem> GetComboDocuments()
         {
             var list = _context.Documents.Select(d => new SelectListItem
@@ -36,6 +40,11 @@ namespace NETCore_MVC_Water_Company.Web.Data.Repositories.Classes
             return list;
         }
 
+        /// <summary>
+        /// Get specific document
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Document> GetDocumentAsync(int id)
         {
             return await _context.Documents.FindAsync(id);
