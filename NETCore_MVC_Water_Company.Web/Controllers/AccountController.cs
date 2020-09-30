@@ -109,7 +109,7 @@
                         DocumentId = model.DocumentId,
                         DocumentNumber = model.DocumentNumber,
                         TIN = model.TIN,
-                        Gender = 2
+                        BirthDate = model.BirthDate
                     };
 
 
@@ -140,6 +140,8 @@
 
                 ModelState.AddModelError(string.Empty, "The username already exists");
             }
+
+            model.Documents = _documentRepository.GetComboDocuments();
 
             return View(model);
         }
@@ -291,6 +293,7 @@
                 model.PhoneNumber = user.PhoneNumber;
                 model.DocumentNumber = user.DocumentNumber;
                 model.TIN = user.TIN;
+                model.BirthDate = user.BirthDate;
 
                 var document = await _documentRepository.GetByIdAsync(user.DocumentId);
 
@@ -325,6 +328,7 @@
                     user.Document = document;
                     user.DocumentNumber = model.DocumentNumber;
                     user.TIN = model.TIN;
+                    user.BirthDate = model.BirthDate;
 
                     var respose = await _userHelper.UpdateUserAsync(user);
 
@@ -342,6 +346,8 @@
                     this.ModelState.AddModelError(string.Empty, "User not found.");
                 }
             }
+
+            model.Documents = _documentRepository.GetComboDocuments();
 
             return this.View(model);
         }

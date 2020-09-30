@@ -107,10 +107,12 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
             {
                 await _userHelper.UpdateUserAsync(user);
 
-                if (!await _userHelper.IsUserInRoleAsync(user, model.RoleName))
-                {
-                    await _userHelper.AddUserToRoleAsync(user, model.RoleName);
-                }
+                await _userHelper.ChangeUserRoleAsync(user, model.RoleName);
+
+                //if (!await _userHelper.IsUserInRoleAsync(user, model.RoleName))
+                //{
+                //    await _userHelper.AddUserToRoleAsync(user, model.RoleName);
+                //}
 
                 return RedirectToAction(nameof(Index));
             }

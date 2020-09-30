@@ -140,5 +140,14 @@
 
             return list;
         }
+
+        public async Task ChangeUserRoleAsync(User user, string roleName)
+        {
+            await RemoveUserFromRoleAsync(user, "Admin");
+            await RemoveUserFromRoleAsync(user, "Employee");
+            await RemoveUserFromRoleAsync(user, "Client");
+
+            await AddUserToRoleAsync(user, roleName);
+        }
     }
 }

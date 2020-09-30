@@ -12,7 +12,6 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// <summary>
         /// Is bill payed
         /// </summary>
-        [Required]
         [Display(Name = "Is bill payed?")]
         public bool PaymentState { get; set; }
 
@@ -20,7 +19,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         /// <summary>
         /// Consumption for specific month
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [DisplayFormat(DataFormatString = "{0:F} m³")]
         [Range(0, 9999, ErrorMessage = "Must be a positive number")]
         public float Consumption { get; set; }
@@ -32,7 +31,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public float FinalValue { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Date")]
         [DisplayFormat(DataFormatString = "{0:MM//yyyy}", ApplyFormatInEditMode = true)]
         public DateTime MonthYear { get; set; }

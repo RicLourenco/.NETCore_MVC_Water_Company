@@ -18,7 +18,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public int Id { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         public string Address { get; set; }
 
 
@@ -45,7 +45,7 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public City City { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Zip code")]
         [RegularExpression(@"^\d{4}(-\d{3})?$", ErrorMessage = "Invalid zip code")]
         public string ZipCode { get; set; }

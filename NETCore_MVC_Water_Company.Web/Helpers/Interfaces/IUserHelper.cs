@@ -47,5 +47,7 @@
         Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
 
         IEnumerable<SelectListItem> GetComboRoles();
+
+        Task ChangeUserRoleAsync(User user, string roleName);
     }
 }

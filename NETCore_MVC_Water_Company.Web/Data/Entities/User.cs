@@ -9,12 +9,12 @@
 
     public class User : IdentityUser
     {
-        [Required]
+        [Required(ErrorMessage = "{0} are required")]
         [Display(Name = "First names")]
         public string FirstNames { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} are required")]
         [Display(Name = "Last names")]
         public string LastNames { get; set; }
 
@@ -23,37 +23,33 @@
         public string FullName { get => $"{FirstNames} {LastNames}"; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         public string Address { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Date of birth")]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
-
-
-        /// <summary>
-        /// 0 == "Male", 1 == "Female", 2 == "Other"
-        /// </summary>
-        [Required]
-        public byte Gender { get; set; }
 
 
         public int DocumentId { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Identification document")]
         public Document Document { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Document number")]
         public string DocumentNumber { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Tax identitfication number")]
+        [StringLength(9, ErrorMessage = "{0} must have 9 digits")]
+
         public string TIN { get; set; }
 
 

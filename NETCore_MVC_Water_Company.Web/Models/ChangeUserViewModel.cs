@@ -13,12 +13,12 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
 
         [Required]
-        [Display(Name = "First name")]
+        [Display(Name = "First names")]
         public string FirstNames { get; set; }
 
 
         [Required]
-        [Display(Name = "Last name")]
+        [Display(Name = "Last names")]
         public string LastNames { get; set; }
 
 
@@ -26,7 +26,13 @@ namespace NETCore_MVC_Water_Company.Web.Models
         public string Address { get; set; }
 
 
-        [MaxLength(20, ErrorMessage = "The field {0} only can contain {1} characters.")]
+        [Required]
+        [Display(Name = "Date of birth")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+
+
+        [MaxLength(15, ErrorMessage = "The field {0} only can contain {1} characters.")]
         public string PhoneNumber { get; set; }
 
 
@@ -43,6 +49,7 @@ namespace NETCore_MVC_Water_Company.Web.Models
 
         [Required]
         [Display(Name = "Tax identitfication number")]
+        [StringLength(9, ErrorMessage = "{0} must have 9 digits")]
         public string TIN { get; set; }
     }
 }

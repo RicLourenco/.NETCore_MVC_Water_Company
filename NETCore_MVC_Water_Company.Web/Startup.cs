@@ -18,6 +18,7 @@
     using NETCore_MVC_Water_Company.Web.Data.Repositories.Classes;
     using System;
 
+    //TODO: try catch and comment everything
     public class Startup
     {
         public Startup(IConfiguration configuration)

@@ -75,7 +75,6 @@
                     Email = "ricardo.pinto.lourenco@formandos.cinel.pt",
                     UserName = "ricardo.pinto.lourenco@formandos.cinel.pt",
                     PhoneNumber = "987654321",
-                    Gender = 0,
                     TIN = "271313862",
                     Address = "Rua das Flores, n.15, 3esq.",
                     DocumentNumber = "123456789",
@@ -83,7 +82,7 @@
                     EmailConfirmed = true
                 };
 
-                var result = await _userHelper.AddUserAsync(user, "%gURn73e");
+                var result = await _userHelper.AddUserAsync(user, "ABab12!?");
 
                 if (!result.Succeeded)
                 {

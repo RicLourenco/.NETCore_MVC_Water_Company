@@ -33,8 +33,11 @@ namespace NETCore_MVC_Water_Company.Web.Models
         [MaxLength(20, ErrorMessage = "The {0} only can contain {1} characters.")]
         public string PhoneNumber { get; set; }
 
-        //[Required]
-        public byte Gender { get; set; }
+
+        [Required]
+        [Display(Name = "Date of birth")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
 
 
         [Display(Name = "Identification document")]
@@ -59,8 +62,10 @@ namespace NETCore_MVC_Water_Company.Web.Models
         public string Confirm { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Tax identification number")]
+        [StringLength(9, ErrorMessage = "{0} must have 9 digits")]
+        [MinLength(9, ErrorMessage = "{0} must have 9 digits")]
         public string TIN { get; set; }
     }
 }

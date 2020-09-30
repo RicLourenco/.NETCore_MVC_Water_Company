@@ -11,14 +11,14 @@ namespace NETCore_MVC_Water_Company.Web.Data.Entities
         public int Id { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Minimum consumption")]
         [DisplayFormat(DataFormatString = "{0:F} m³")]
         [Range(0, 9999, ErrorMessage = "Must be a positive number")]
         public float MinimumConsumption { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "{0} is required")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         [Range(0, 9999, ErrorMessage = "Must be a positive number")]
         public float Price { get; set; }

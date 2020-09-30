@@ -17,14 +17,14 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "RICARDO FILIPE PINTO LOURENÇO\nCINEL: CET.TPSI.46\nv1.0 30/09/2020";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "My contact: 914776731\nricardo.pinto.lourenco@formandos.cinel.pt";
 
             return View();
         }
@@ -38,6 +38,13 @@ namespace NETCore_MVC_Water_Company.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        [Route("error/404")]
+        public IActionResult Error404()
+        {
+            return View();
         }
     }
 }
